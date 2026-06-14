@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lowww — Motion Designer & IT Creative</title>
+  <title>Lowww — Cinematic Motion Design & AI-Powered Storytelling</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
@@ -13,41 +13,41 @@
       --orange: #D85A30;
       --orange-light: #FAECE7;
       --orange-dark: #993C1D;
-      --bg: #0D0D0D;
-      --bg2: #141414;
+      --bg: #0A0A0A;
+      --bg2: #111111;
       --bg3: #1A1A1A;
-      --border: rgba(255,255,255,0.08);
+      --border: rgba(255,255,255,0.07);
+      --border2: rgba(255,255,255,0.12);
       --text: #F0EDE8;
-      --muted: #888;
-      --blue-light: #E6F1FB;
-      --blue: #185FA5;
-      --green-light: #EAF3DE;
-      --green: #3B6D11;
-      --pink-light: #FBEAF0;
-      --pink: #993556;
-      --amber-light: #FAEEDA;
-      --amber: #854F0B;
-      --purple-light: #EEEDFE;
-      --purple: #534AB7;
-      --teal-light: #E1F5EE;
-      --teal: #0F6E56;
+      --muted: #777;
+      --muted2: #555;
+      --blue-light: #E6F1FB; --blue: #185FA5;
+      --green-light: #EAF3DE; --green: #3B6D11;
+      --pink-light: #FBEAF0; --pink: #993556;
+      --amber-light: #FAEEDA; --amber: #854F0B;
+      --purple-light: #EEEDFE; --purple: #534AB7;
+      --teal-light: #E1F5EE; --teal: #0F6E56;
     }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+
+    /* SCROLL REVEAL */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
     /* NAV */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
       padding: 1.2rem 2.5rem;
-      background: rgba(13,13,13,0.88);
-      backdrop-filter: blur(14px);
+      background: rgba(10,10,10,0.9);
+      backdrop-filter: blur(20px);
       border-bottom: 0.5px solid var(--border);
     }
     .logo { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; letter-spacing: 3px; color: var(--text); }
     .logo span { color: var(--orange); }
     .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; }
+    .nav-links a { font-size: 12px; color: var(--muted); text-decoration: none; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; }
     .nav-links a:hover { color: var(--text); }
 
     /* HERO */
@@ -57,46 +57,55 @@
       padding: 8rem 2.5rem 4rem;
       position: relative; overflow: hidden;
     }
-    .hero-eyebrow { font-size: 11px; letter-spacing: 4px; color: var(--orange); text-transform: uppercase; margin-bottom: 1.5rem; }
+    .hero-particles {
+      position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse at 70% 50%, rgba(216,90,48,0.08) 0%, transparent 60%),
+                  radial-gradient(ellipse at 20% 80%, rgba(83,74,183,0.06) 0%, transparent 50%);
+    }
+    .hero-eyebrow {
+      font-size: 11px; letter-spacing: 4px; color: var(--orange);
+      text-transform: uppercase; margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .hero-eyebrow::before { content: ''; display: block; width: 32px; height: 0.5px; background: var(--orange); }
     .hero-title {
       font-family: 'Syne', sans-serif;
-      font-size: clamp(3rem, 8vw, 6rem);
-      font-weight: 800; line-height: 1.0;
-      color: var(--text); margin-bottom: 1.5rem;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 800; line-height: 1.05;
+      color: var(--text); margin-bottom: 1.5rem; max-width: 800px;
     }
     .hero-title em { font-style: normal; color: var(--orange); }
-    .hero-sub { font-size: 1rem; color: var(--muted); max-width: 500px; line-height: 1.8; margin-bottom: 2.5rem; }
+    .hero-sub { font-size: 1rem; color: var(--muted); max-width: 520px; line-height: 1.9; margin-bottom: 2.5rem; }
     .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
     .btn-primary {
-      padding: 12px 28px; border-radius: 6px;
+      padding: 13px 32px; border-radius: 6px;
       background: var(--orange); color: #fff;
-      font-size: 14px; font-weight: 500; border: none;
+      font-size: 13px; font-weight: 500; border: none; letter-spacing: 0.5px;
       cursor: pointer; text-decoration: none; display: inline-flex;
-      align-items: center; gap: 8px; transition: background 0.2s;
+      align-items: center; gap: 8px; transition: background 0.2s, transform 0.2s;
     }
-    .btn-primary:hover { background: var(--orange-dark); }
+    .btn-primary:hover { background: var(--orange-dark); transform: translateY(-1px); }
     .btn-outline {
-      padding: 12px 28px; border-radius: 6px;
+      padding: 13px 32px; border-radius: 6px;
       background: transparent; color: var(--text);
-      font-size: 14px; font-weight: 500;
-      border: 0.5px solid rgba(255,255,255,0.2);
+      font-size: 13px; font-weight: 500; letter-spacing: 0.5px;
+      border: 0.5px solid var(--border2);
       cursor: pointer; text-decoration: none; display: inline-flex;
-      align-items: center; gap: 8px; transition: border-color 0.2s;
+      align-items: center; gap: 8px; transition: border-color 0.2s, transform 0.2s;
     }
-    .btn-outline:hover { border-color: rgba(255,255,255,0.4); }
-    .hero-bg-circle {
-      position: absolute; right: -200px; top: 50%;
-      transform: translateY(-50%);
-      width: 600px; height: 600px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(216,90,48,0.12) 0%, transparent 70%);
-      pointer-events: none;
+    .btn-outline:hover { border-color: rgba(255,255,255,0.3); transform: translateY(-1px); }
+    .hero-stats {
+      display: flex; gap: 2.5rem; margin-top: 3rem;
+      padding-top: 2rem; border-top: 0.5px solid var(--border);
     }
+    .hero-stat-num { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--text); }
+    .hero-stat-label { font-size: 11px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; }
 
     /* TICKER */
-    .ticker { border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); padding: 1rem 0; overflow: hidden; background: var(--bg2); }
-    .ticker-inner { display: flex; gap: 12px; animation: ticker 20s linear infinite; width: max-content; }
+    .ticker { border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); padding: 0.9rem 0; overflow: hidden; background: var(--bg2); }
+    .ticker-inner { display: flex; gap: 12px; animation: ticker 25s linear infinite; width: max-content; }
     @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    .pill { padding: 5px 16px; border-radius: 999px; font-size: 12px; font-weight: 500; white-space: nowrap; }
+    .pill { padding: 4px 14px; border-radius: 999px; font-size: 11px; font-weight: 500; white-space: nowrap; letter-spacing: 0.5px; }
     .p-orange { background: var(--orange-light); color: var(--orange-dark); }
     .p-blue   { background: var(--blue-light);   color: var(--blue); }
     .p-green  { background: var(--green-light);  color: var(--green); }
@@ -107,8 +116,85 @@
 
     /* SECTION BASE */
     section { padding: 5rem 2.5rem; }
-    .section-label { font-size: 11px; letter-spacing: 4px; color: var(--orange); text-transform: uppercase; margin-bottom: 1rem; }
+    .section-label { font-size: 10px; letter-spacing: 4px; color: var(--orange); text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; }
+    .section-label::before { content: ''; display: block; width: 24px; height: 0.5px; background: var(--orange); }
     .section-title { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; color: var(--text); margin-bottom: 2.5rem; }
+
+    /* SHOWREEL */
+    #showreel { background: var(--bg2); padding: 5rem 2.5rem; }
+    .showreel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .showreel-featured {
+      grid-column: 1 / -1;
+      border: 0.5px solid var(--border); border-radius: 12px; overflow: hidden;
+      background: var(--bg3); position: relative;
+    }
+    .showreel-featured video { width: 100%; display: block; max-height: 420px; object-fit: cover; }
+    .showreel-featured-overlay {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 1.5rem; background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      display: flex; justify-content: space-between; align-items: flex-end;
+    }
+    .showreel-mini {
+      border: 0.5px solid var(--border); border-radius: 12px; overflow: hidden;
+      background: var(--bg3); position: relative;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .showreel-mini:hover { border-color: rgba(216,90,48,0.4); transform: translateY(-2px); }
+    .showreel-mini video { width: 100%; height: 160px; object-fit: cover; display: block; }
+    .showreel-mini-info { padding: 0.8rem 1rem; }
+    .showreel-mini-title { font-size: 13px; font-weight: 500; color: var(--text); }
+    .showreel-mini-type { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+    /* VIDEO PLAYER CONTROLS */
+    .video-wrap { position: relative; }
+    .video-controls {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 0.8rem 1rem;
+      background: linear-gradient(transparent, rgba(0,0,0,0.85));
+      display: flex; align-items: center; gap: 10px;
+      opacity: 0; transition: opacity 0.2s;
+    }
+    .video-wrap:hover .video-controls { opacity: 1; }
+    .v-btn {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: rgba(255,255,255,0.15); border: none;
+      color: #fff; cursor: pointer; display: flex;
+      align-items: center; justify-content: center;
+      font-size: 12px; transition: background 0.2s; flex-shrink: 0;
+    }
+    .v-btn:hover { background: var(--orange); }
+    .v-progress { flex: 1; height: 3px; background: rgba(255,255,255,0.2); border-radius: 2px; cursor: pointer; }
+    .v-progress-fill { height: 100%; background: var(--orange); border-radius: 2px; width: 0%; transition: width 0.1s; }
+    .v-time { font-size: 10px; color: rgba(255,255,255,0.6); white-space: nowrap; }
+
+    /* PROJECTS */
+    #projects { background: var(--bg); }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .project-card {
+      border: 0.5px solid var(--border); border-radius: 16px; overflow: hidden;
+      background: var(--bg2); transition: border-color 0.3s, transform 0.3s;
+      cursor: pointer;
+    }
+    .project-card:hover { border-color: rgba(216,90,48,0.4); transform: translateY(-4px); }
+    .project-thumb { position: relative; overflow: hidden; }
+    .project-thumb video { width: 100%; height: 200px; object-fit: cover; display: block; }
+    .project-thumb-placeholder { width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+    .project-category {
+      position: absolute; top: 12px; left: 12px;
+      padding: 3px 10px; border-radius: 999px;
+      font-size: 10px; font-weight: 500; letter-spacing: 1px;
+      text-transform: uppercase; backdrop-filter: blur(8px);
+    }
+    .cat-luxury { background: rgba(216,90,48,0.2); color: #F0A080; border: 0.5px solid rgba(216,90,48,0.3); }
+    .cat-entertainment { background: rgba(83,74,183,0.2); color: #A09AE8; border: 0.5px solid rgba(83,74,183,0.3); }
+    .cat-technology { background: rgba(24,95,165,0.2); color: #80B4E8; border: 0.5px solid rgba(24,95,165,0.3); }
+    .cat-sports { background: rgba(59,109,17,0.2); color: #90C860; border: 0.5px solid rgba(59,109,17,0.3); }
+    .project-body { padding: 1.2rem 1.4rem 1.4rem; }
+    .project-name { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+    .project-meta { font-size: 11px; color: var(--muted); margin-bottom: 12px; }
+    .project-summary { font-size: 12px; color: var(--muted); line-height: 1.7; margin-bottom: 12px; }
+    .project-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .project-tag { font-size: 10px; color: var(--muted2); border: 0.5px solid var(--border); padding: 2px 8px; border-radius: 4px; }
 
     /* ABOUT */
     #about { background: var(--bg2); }
@@ -117,157 +203,101 @@
       width: 220px; border-radius: 16px;
       background: var(--bg3); border: 0.5px solid var(--border);
       display: flex; align-items: center; justify-content: center;
-      flex-direction: column; gap: 12px;
-      padding: 2rem 1.5rem; flex-shrink: 0;
+      flex-direction: column; gap: 12px; padding: 2rem 1.5rem; flex-shrink: 0;
     }
     .avatar-initials { font-family: 'Syne', sans-serif; font-size: 4rem; font-weight: 800; color: var(--orange); line-height: 1; }
-    .avatar-name { font-size: 11px; color: var(--muted); letter-spacing: 2px; text-align: center; }
-    .avatar-badge {
-      margin-top: 4px; padding: 4px 14px; border-radius: 999px;
-      background: var(--orange-light); color: var(--orange-dark);
-      font-size: 11px; font-weight: 500;
-    }
+    .avatar-name { font-size: 10px; color: var(--muted); letter-spacing: 2px; text-align: center; text-transform: uppercase; }
+    .avatar-badge { margin-top: 4px; padding: 4px 14px; border-radius: 999px; background: var(--orange-light); color: var(--orange-dark); font-size: 11px; font-weight: 500; }
     .about-text p { font-size: 15px; color: var(--muted); line-height: 1.9; margin-bottom: 1rem; }
     .about-text p strong { color: var(--text); font-weight: 500; }
     .about-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.2rem; }
-
-    /* INFO CARDS */
-    .info-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-top: 2rem; }
-    .info-card {
-      background: var(--bg3); border: 0.5px solid var(--border);
-      border-radius: 10px; padding: 1rem;
-    }
+    .info-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-top: 1.5rem; }
+    .info-card { background: var(--bg3); border: 0.5px solid var(--border); border-radius: 10px; padding: 1rem; }
     .info-card-label { font-size: 10px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
-    .info-card-value { font-size: 14px; font-weight: 500; color: var(--text); }
-
-    /* SHOWREEL */
-    #showreel { background: var(--bg); }
-    .showreel-box {
-      border: 0.5px solid var(--border); border-radius: 12px;
-      background: var(--bg3); aspect-ratio: 16/9; max-height: 420px;
-      display: flex; align-items: center; justify-content: center;
-      flex-direction: column; gap: 1rem; position: relative;
-    }
-    .play-circle {
-      width: 72px; height: 72px; border-radius: 50%;
-      background: var(--orange); display: flex; align-items: center; justify-content: center;
-      cursor: pointer; transition: transform 0.2s; margin: 0 auto 1rem;
-    }
-    .play-circle:hover { transform: scale(1.08); }
-    .play-circle svg { width: 28px; height: 28px; fill: #fff; margin-left: 4px; }
-    .showreel-note { font-size: 13px; color: var(--muted); text-align: center; }
-    .video-hint { position: absolute; bottom: 1.2rem; right: 1.2rem; font-size: 11px; color: var(--muted); letter-spacing: 1px; }
+    .info-card-value { font-size: 13px; font-weight: 500; color: var(--text); }
 
     /* SKILLS */
-    #skills { background: var(--bg2); }
-    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
-    .skill-card {
-      background: var(--bg3); border: 0.5px solid var(--border);
-      border-radius: 12px; padding: 1.3rem;
-      transition: border-color 0.2s;
-    }
+    #skills { background: var(--bg); }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    .skill-card { background: var(--bg2); border: 0.5px solid var(--border); border-radius: 12px; padding: 1.2rem; transition: border-color 0.2s; }
     .skill-card:hover { border-color: rgba(216,90,48,0.3); }
-    .skill-card-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-    .skill-card-title svg { width: 18px; height: 18px; color: var(--orange); flex-shrink: 0; }
+    .skill-card-title { font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+    .skill-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); flex-shrink: 0; }
     .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
     .skill-tag { padding: 3px 10px; border-radius: 999px; font-size: 11px; background: var(--bg); border: 0.5px solid var(--border); color: var(--muted); }
 
+    /* CREATIVE PROCESS */
+    #process { background: var(--bg2); }
+    .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1px; background: var(--border); border-radius: 12px; overflow: hidden; }
+    .process-step { background: var(--bg2); padding: 1.5rem 1.2rem; position: relative; transition: background 0.2s; }
+    .process-step:hover { background: var(--bg3); }
+    .process-num { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--border2); margin-bottom: 0.8rem; }
+    .process-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 6px; }
+    .process-desc { font-size: 11px; color: var(--muted); line-height: 1.6; }
+
     /* EXPERIENCE */
     #experience { background: var(--bg); }
-    .exp-card {
-      background: var(--bg2); border: 0.5px solid var(--border);
-      border-radius: 12px; padding: 1.5rem 1.8rem; margin-bottom: 16px;
-    }
+    .exp-card { background: var(--bg2); border: 0.5px solid var(--border); border-radius: 12px; padding: 1.5rem 1.8rem; margin-bottom: 12px; transition: border-color 0.2s; }
+    .exp-card:hover { border-color: var(--border2); }
     .exp-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
     .exp-title { font-size: 15px; font-weight: 500; color: var(--text); }
     .exp-company { font-size: 13px; color: var(--orange); margin-top: 2px; }
-    .exp-date { font-size: 12px; color: var(--muted); white-space: nowrap; }
+    .exp-date { font-size: 11px; color: var(--muted); white-space: nowrap; }
     .exp-list { padding-left: 1.2rem; }
     .exp-list li { font-size: 13px; color: var(--muted); line-height: 1.8; margin-bottom: 4px; }
+    .seminars-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-top: 1.5rem; }
+    .seminar-card { background: var(--bg2); border: 0.5px solid var(--border); border-radius: 10px; padding: 1rem 1.2rem; }
+    .seminar-date { font-size: 10px; letter-spacing: 2px; color: var(--orange); text-transform: uppercase; margin-bottom: 6px; }
+    .seminar-title { font-size: 12px; color: var(--text); line-height: 1.5; }
 
     /* EDUCATION */
     #education { background: var(--bg2); }
-    .edu-card {
-      background: var(--bg3); border: 0.5px solid var(--border);
-      border-radius: 12px; padding: 1.5rem 1.8rem;
-      display: flex; gap: 1.5rem; align-items: flex-start;
-    }
-    .edu-icon {
-      width: 48px; height: 48px; border-radius: 10px;
-      background: var(--orange-light); display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
+    .edu-card { background: var(--bg3); border: 0.5px solid var(--border); border-radius: 12px; padding: 1.5rem 1.8rem; display: flex; gap: 1.5rem; align-items: flex-start; }
+    .edu-icon { width: 48px; height: 48px; border-radius: 10px; background: var(--orange-light); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .edu-icon svg { width: 24px; height: 24px; color: var(--orange-dark); }
     .edu-school { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
     .edu-degree { font-size: 13px; color: var(--muted); margin-bottom: 8px; line-height: 1.6; }
-    .edu-year { font-size: 12px; color: var(--orange); }
-
-    /* SEMINARS */
-    .seminars-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 2rem; }
-    .seminar-card {
-      background: var(--bg3); border: 0.5px solid var(--border);
-      border-radius: 10px; padding: 1rem 1.2rem;
-    }
-    .seminar-date { font-size: 10px; letter-spacing: 2px; color: var(--orange); text-transform: uppercase; margin-bottom: 6px; }
-    .seminar-title { font-size: 13px; color: var(--text); line-height: 1.5; }
-
-    /* PROJECTS */
-    #projects { background: var(--bg); }
-    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
-    .project-card {
-      border: 0.5px solid var(--border); border-radius: 12px; overflow: hidden;
-      background: var(--bg2); transition: border-color 0.2s, transform 0.2s;
-    }
-    .project-card:hover { border-color: rgba(216,90,48,0.4); transform: translateY(-3px); }
-    .project-thumb { height: 140px; display: flex; align-items: center; justify-content: center; font-size: 3rem; }
-    .t1 { background: #1F120D; } .t2 { background: #0D1520; }
-    .t3 { background: #0F1A0D; } .t4 { background: #1A0D14; }
-    .project-body { padding: 1rem 1.1rem 1.2rem; }
-    .project-name { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
-    .project-type { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+    .edu-year { font-size: 11px; color: var(--orange); }
 
     /* CONTACT */
-    #contact { background: var(--bg2); }
+    #contact { background: var(--bg); }
     .contact-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
     .contact-info p { font-size: 15px; color: var(--muted); line-height: 1.9; margin-bottom: 1.5rem; }
-    .contact-detail {
-      display: flex; align-items: center; gap: 10px;
-      font-size: 13px; color: var(--muted); margin-bottom: 10px;
-      text-decoration: none; transition: color 0.2s;
-    }
+    .contact-detail { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); margin-bottom: 10px; text-decoration: none; transition: color 0.2s; }
     .contact-detail:hover { color: var(--orange); }
     .contact-detail svg { width: 16px; height: 16px; flex-shrink: 0; }
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .contact-grid input, .contact-grid textarea {
       padding: 11px 14px; border: 0.5px solid var(--border);
-      border-radius: 8px; background: var(--bg3);
+      border-radius: 8px; background: var(--bg2);
       color: var(--text); font-family: 'Inter', sans-serif;
-      font-size: 14px; outline: none; transition: border-color 0.2s; width: 100%;
+      font-size: 13px; outline: none; transition: border-color 0.2s; width: 100%;
     }
     .contact-grid input:focus, .contact-grid textarea:focus { border-color: var(--orange); }
-    .contact-grid input::placeholder, .contact-grid textarea::placeholder { color: #555; }
+    .contact-grid input::placeholder, .contact-grid textarea::placeholder { color: var(--muted2); }
     .contact-grid .full { grid-column: 1 / -1; }
     .contact-grid textarea { height: 120px; resize: vertical; }
-    .send-btn {
-      margin-top: 12px; padding: 12px 32px; border-radius: 8px;
-      background: var(--orange); color: #fff;
-      font-size: 14px; font-weight: 500; border: none;
-      cursor: pointer; transition: background 0.2s;
-    }
+    .send-btn { margin-top: 12px; padding: 12px 32px; border-radius: 8px; background: var(--orange); color: #fff; font-size: 13px; font-weight: 500; border: none; cursor: pointer; transition: background 0.2s; letter-spacing: 0.5px; }
     .send-btn:hover { background: var(--orange-dark); }
 
+    /* SUCCESS POPUP */
+    #success-popup { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 999; background: rgba(0,0,0,0.8); align-items: center; justify-content: center; }
+    .popup-inner { background: var(--bg2); border: 0.5px solid var(--border2); border-radius: 16px; padding: 2.5rem 2rem; max-width: 380px; width: 90%; text-align: center; }
+    .popup-icon { width: 56px; height: 56px; border-radius: 50%; background: var(--orange); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; }
+    .popup-title { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 800; color: var(--text); margin-bottom: 0.5rem; }
+    .popup-sub { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
+    .popup-btn { padding: 10px 28px; border-radius: 8px; background: var(--orange); color: #fff; font-size: 13px; font-weight: 500; border: none; cursor: pointer; }
+
     /* FOOTER */
-    footer {
-      padding: 1.5rem 2.5rem;
-      border-top: 0.5px solid var(--border);
-      display: flex; justify-content: space-between; align-items: center;
-      flex-wrap: wrap; gap: 1rem; background: var(--bg);
-    }
+    footer { padding: 3rem 2.5rem; border-top: 0.5px solid var(--border); background: var(--bg); }
+    .footer-cta { font-family: 'Syne', sans-serif; font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 800; color: var(--text); margin-bottom: 0.5rem; }
+    .footer-cta em { font-style: normal; color: var(--orange); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 0.5px solid var(--border); }
     .footer-logo { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; letter-spacing: 3px; color: var(--text); }
     .footer-logo span { color: var(--orange); }
     footer p { font-size: 12px; color: var(--muted); }
     .social-links { display: flex; gap: 1.2rem; }
-    .social-links a { font-size: 12px; color: var(--muted); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; }
+    .social-links a { font-size: 11px; color: var(--muted); text-decoration: none; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; }
     .social-links a:hover { color: var(--orange); }
 
     /* RESPONSIVE */
@@ -275,12 +305,14 @@
       nav { padding: 1rem 1.2rem; }
       .nav-links { gap: 1rem; }
       .hero { padding: 7rem 1.2rem 3rem; }
+      .hero-stats { gap: 1.5rem; }
       section { padding: 3.5rem 1.2rem; }
-      .about-grid { grid-template-columns: 1fr; }
+      .about-grid, .contact-wrap { grid-template-columns: 1fr; }
       .about-avatar { width: 100%; max-width: 200px; }
-      .contact-wrap { grid-template-columns: 1fr; }
+      .showreel-grid { grid-template-columns: 1fr; }
       .contact-grid { grid-template-columns: 1fr; }
-      footer { flex-direction: column; text-align: center; }
+      footer { padding: 2rem 1.2rem; }
+      .footer-bottom { flex-direction: column; text-align: center; }
     }
   </style>
 </head>
@@ -290,26 +322,40 @@
   <nav>
     <div class="logo">LOW<span>WW</span></div>
     <ul class="nav-links">
-      <li><a href="#about">about</a></li>
-      <li><a href="#skills">skills</a></li>
-      <li><a href="#experience">experience</a></li>
-      <li><a href="#projects">work</a></li>
-      <li><a href="#contact">contact</a></li>
+      <li><a href="#showreel">Showreel</a></li>
+      <li><a href="#projects">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-bg-circle"></div>
-    <p class="hero-eyebrow">Motion Designer · IT Graduate · Philippines 🇵🇭</p>
-    <h1 class="hero-title">Hi, I'm<br><em>Lowww.</em><br>I make things move.</h1>
-    <p class="hero-sub">BS Information Technology graduate with a passion for motion design, creative visuals, and building things from scratch. Fresh eyes, bold ideas — the best is yet to come.</p>
+    <div class="hero-particles"></div>
+    <p class="hero-eyebrow">AI Motion Designer · Philippines 🇵🇭</p>
+    <h1 class="hero-title">Cinematic Motion Design<br>& <em>AI-Powered</em><br>Storytelling.</h1>
+    <p class="hero-sub">I create premium commercials, title sequences, product launches, and cinematic brand experiences using next-generation creative tools.</p>
     <div class="hero-btns">
       <a href="#showreel" class="btn-primary">
-        <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:#fff"><path d="M8 5v14l11-7z"/></svg>
-        Watch showreel
+        <svg viewBox="0 0 24 24" style="width:15px;height:15px;fill:#fff"><path d="M8 5v14l11-7z"/></svg>
+        View Showreel
       </a>
-      <a href="#contact" class="btn-outline">Get in touch</a>
+      <a href="#projects" class="btn-outline">Explore Projects</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">4+</div>
+        <div class="hero-stat-label">Spec Projects</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">AI</div>
+        <div class="hero-stat-label">Powered</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">PH</div>
+        <div class="hero-stat-label">Based</div>
+      </div>
     </div>
   </div>
 
@@ -317,183 +363,303 @@
   <div class="ticker" aria-hidden="true">
     <div class="ticker-inner">
       <span class="pill p-orange">Motion Design</span>
-      <span class="pill p-blue">HTML5 · CSS3</span>
-      <span class="pill p-green">Adobe Photoshop</span>
-      <span class="pill p-pink">CapCut</span>
-      <span class="pill p-amber">IT Support</span>
-      <span class="pill p-purple">Python</span>
-      <span class="pill p-teal">GitHub</span>
-      <span class="pill p-orange">Logo Animation</span>
-      <span class="pill p-blue">Web Development</span>
-      <span class="pill p-green">AI Automation</span>
-      <span class="pill p-pink">Brand Motion</span>
-      <span class="pill p-amber">MySQL</span>
+      <span class="pill p-blue">AI Video Production</span>
+      <span class="pill p-green">Brand Films</span>
+      <span class="pill p-pink">Title Sequences</span>
+      <span class="pill p-amber">Prompt Engineering</span>
+      <span class="pill p-purple">Creative Direction</span>
+      <span class="pill p-teal">Visual Storytelling</span>
+      <span class="pill p-orange">Luxury Campaigns</span>
+      <span class="pill p-blue">Cinematic Ads</span>
+      <span class="pill p-green">Storyboarding</span>
+      <span class="pill p-pink">Product Launch</span>
+      <span class="pill p-amber">Concept Development</span>
       <span class="pill p-orange">Motion Design</span>
-      <span class="pill p-blue">HTML5 · CSS3</span>
-      <span class="pill p-green">Adobe Photoshop</span>
-      <span class="pill p-pink">CapCut</span>
-      <span class="pill p-amber">IT Support</span>
-      <span class="pill p-purple">Python</span>
-      <span class="pill p-teal">GitHub</span>
-      <span class="pill p-orange">Logo Animation</span>
-      <span class="pill p-blue">Web Development</span>
-      <span class="pill p-green">AI Automation</span>
-      <span class="pill p-pink">Brand Motion</span>
-      <span class="pill p-amber">MySQL</span>
+      <span class="pill p-blue">AI Video Production</span>
+      <span class="pill p-green">Brand Films</span>
+      <span class="pill p-pink">Title Sequences</span>
+      <span class="pill p-amber">Prompt Engineering</span>
+      <span class="pill p-purple">Creative Direction</span>
+      <span class="pill p-teal">Visual Storytelling</span>
+      <span class="pill p-orange">Luxury Campaigns</span>
+      <span class="pill p-blue">Cinematic Ads</span>
+      <span class="pill p-green">Storyboarding</span>
+      <span class="pill p-pink">Product Launch</span>
+      <span class="pill p-amber">Concept Development</span>
     </div>
   </div>
 
-  <!-- ABOUT -->
-  <section id="about">
-    <p class="section-label">who I am</p>
-    <h2 class="section-title">About me</h2>
-    <div class="about-grid">
-      <div class="about-avatar">
-        <div class="avatar-initials">LJ</div>
-        <div class="avatar-name">LHOUEI JAY P. AMION</div>
-        <div class="avatar-badge">Lowww</div>
-      </div>
-      <div>
-        <div class="about-text">
-          <p>I'm <strong>Lhouei Jay Amion</strong> — a 23-year-old <strong>BS Information Technology graduate</strong> from Bulacan State University, specializing in motion design and visual storytelling.</p>
-          <p>I create <strong>cinematic motion graphics, brand videos, and visual ads</strong> that make brands stand out. From logo reveals to full product campaigns — I deliver bold, high-quality visuals powered by the latest AI creative tools.</p>
-          <p>Every project I take on is crafted with <strong>precision, creativity, and a deep attention to detail</strong> — because your brand deserves visuals that move people.</p>
-          <div class="about-tags">
-            <span class="pill p-orange">Motion Design</span>
-            <span class="pill p-blue">IT Graduate 2025</span>
-            <span class="pill p-green">Bulacan, PH 🇵🇭</span>
-            <span class="pill p-purple">Self-taught</span>
-            <span class="pill p-teal">Always learning</span>
+  <!-- SHOWREEL -->
+  <section id="showreel">
+    <p class="section-label">Featured Works</p>
+    <h2 class="section-title">Showreel</h2>
+    <div class="showreel-grid">
+      <!-- FEATURED: Lamborghini -->
+      <div class="showreel-featured reveal">
+        <div class="video-wrap">
+          <video id="vid-lambo" src="https://d8j0ntlcm91z4.cloudfront.net/user_39UIovq0myu4GeOCMsHj4PclXJ6/hf_20260613_231948_17ecfff7-f52a-4102-b97a-5774110a3dd9.mp4" loop muted playsinline style="width:100%; max-height:420px; object-fit:cover; display:block;"></video>
+          <div class="video-controls">
+            <button class="v-btn" onclick="togglePlay('vid-lambo', this)">▶</button>
+            <div class="v-progress" onclick="seekVideo('vid-lambo', event, this)"><div class="v-progress-fill" id="prog-lambo"></div></div>
+            <span class="v-time" id="time-lambo">0:00</span>
+            <button class="v-btn" onclick="toggleMute('vid-lambo', this)">🔇</button>
           </div>
         </div>
-        <div class="info-cards">
-          <div class="info-card">
-            <div class="info-card-label">Age</div>
-            <div class="info-card-value">22 years old</div>
+        <div style="padding:1.2rem 1.5rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+          <div>
+            <p style="font-size:16px; font-weight:500; color:var(--text); margin-bottom:4px;">Lamborghini — Premium Launch Teaser</p>
+            <p style="font-size:12px; color:var(--muted);">Luxury Automotive · 15 sec · 16:9</p>
           </div>
-          <div class="info-card">
-            <div class="info-card-label">Location</div>
-            <div class="info-card-value">CSJDM, Bulacan</div>
+          <span class="pill p-orange" style="font-size:11px;">Featured</span>
+        </div>
+      </div>
+
+      <!-- Apple -->
+      <div class="showreel-mini reveal">
+        <div class="video-wrap">
+          <video id="vid-apple" src="https://d8j0ntlcm91z4.cloudfront.net/user_39UIovq0myu4GeOCMsHj4PclXJ6/hf_20260613_212105_3cb2c637-dbaa-400f-8f6c-c08bdff71f8c.mp4" loop muted playsinline></video>
+          <div class="video-controls">
+            <button class="v-btn" onclick="togglePlay('vid-apple', this)">▶</button>
+            <div class="v-progress" onclick="seekVideo('vid-apple', event, this)"><div class="v-progress-fill" id="prog-apple"></div></div>
+            <span class="v-time" id="time-apple">0:00</span>
+            <button class="v-btn" onclick="toggleMute('vid-apple', this)">🔇</button>
           </div>
-          <div class="info-card">
-            <div class="info-card-label">Degree</div>
-            <div class="info-card-value">BS Info Tech</div>
+        </div>
+        <div class="showreel-mini-info">
+          <div class="showreel-mini-title">Apple — Abstract Motion Graphic</div>
+          <div class="showreel-mini-type">Brand Film · 10 sec</div>
+        </div>
+      </div>
+
+      <!-- Red Bull -->
+      <div class="showreel-mini reveal">
+        <div class="video-wrap">
+          <video id="vid-redbull" src="https://d8j0ntlcm91z4.cloudfront.net/user_39UIovq0myu4GeOCMsHj4PclXJ6/hf_20260613_221335_d019a58d-2a31-45f1-b888-64242bfb83ef.mp4" loop muted playsinline></video>
+          <div class="video-controls">
+            <button class="v-btn" onclick="togglePlay('vid-redbull', this)">▶</button>
+            <div class="v-progress" onclick="seekVideo('vid-redbull', event, this)"><div class="v-progress-fill" id="prog-redbull"></div></div>
+            <span class="v-time" id="time-redbull">0:00</span>
+            <button class="v-btn" onclick="toggleMute('vid-redbull', this)">🔇</button>
           </div>
-          <div class="info-card">
-            <div class="info-card-label">Phone</div>
-            <div class="info-card-value">+63 992 023 0047</div>
-          </div>
+        </div>
+        <div class="showreel-mini-info">
+          <div class="showreel-mini-title">Red Bull — Hyper Kinetic Teaser</div>
+          <div class="showreel-mini-type">Energy Drink Ad · 5 sec</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SHOWREEL -->
-  <section id="showreel">
-    <p class="section-label">featured</p>
-    <h2 class="section-title">Showreel</h2>
-    <div class="showreel-box">
-      <div>
-        <div class="play-circle">
-          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="section-label">Selected Work</p>
+    <h2 class="section-title">Spec Projects</h2>
+    <div class="projects-grid">
+
+      <div class="project-card reveal">
+        <div class="project-thumb">
+          <div class="video-wrap">
+            <video id="vid-p1" src="https://d8j0ntlcm91z4.cloudfront.net/user_39UIovq0myu4GeOCMsHj4PclXJ6/hf_20260613_231948_17ecfff7-f52a-4102-b97a-5774110a3dd9.mp4" loop muted playsinline class="project-thumb-placeholder" style="height:200px; object-fit:cover;"></video>
+            <div class="video-controls">
+              <button class="v-btn" onclick="togglePlay('vid-p1', this)">▶</button>
+              <div class="v-progress" onclick="seekVideo('vid-p1', event, this)"><div class="v-progress-fill" id="prog-p1"></div></div>
+              <span class="v-time" id="time-p1">0:00</span>
+              <button class="v-btn" onclick="toggleMute('vid-p1', this)">🔇</button>
+            </div>
+          </div>
+          <span class="project-category cat-luxury">Luxury</span>
         </div>
-        <p class="showreel-note">Coming soon — watch this space 👀</p>
+        <div class="project-body">
+          <p class="project-name">Lamborghini Product Launch</p>
+          <p class="project-meta">15 sec · 16:9 · Seedance 2.0</p>
+          <p class="project-summary">A cinematic 15-second luxury automotive teaser revealing the Lamborghini from darkness — carbon fiber details, headlight ignition, and a golden emblem reveal.</p>
+          <div class="project-tags">
+            <span class="project-tag">Motion Design</span>
+            <span class="project-tag">AI Production</span>
+            <span class="project-tag">Luxury</span>
+          </div>
+        </div>
       </div>
-      <span class="video-hint">Lowww · 2025</span>
+
+      <div class="project-card reveal">
+        <div class="project-thumb">
+          <div class="project-thumb-placeholder t3" style="background:#0F1A0D;">🎬</div>
+          <span class="project-category cat-entertainment">Entertainment</span>
+        </div>
+        <div class="project-body">
+          <p class="project-name">HBO — Title Sequence</p>
+          <p class="project-meta">10 sec · 16:9 · Coming Soon</p>
+          <p class="project-summary">A premium HBO title sequence concept — "The Eye" — a cosmic journey through a pupil into a galaxy that collapses into the HBO logo.</p>
+          <div class="project-tags">
+            <span class="project-tag">Title Sequence</span>
+            <span class="project-tag">Cosmic</span>
+            <span class="project-tag">Premium</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-thumb">
+          <div class="video-wrap">
+            <video id="vid-p3" src="https://d8j0ntlcm91z4.cloudfront.net/user_39UIovq0myu4GeOCMsHj4PclXJ6/hf_20260613_212105_3cb2c637-dbaa-400f-8f6c-c08bdff71f8c.mp4" loop muted playsinline style="width:100%; height:200px; object-fit:cover; display:block;"></video>
+            <div class="video-controls">
+              <button class="v-btn" onclick="togglePlay('vid-p3', this)">▶</button>
+              <div class="v-progress" onclick="seekVideo('vid-p3', event, this)"><div class="v-progress-fill" id="prog-p3"></div></div>
+              <span class="v-time" id="time-p3">0:00</span>
+              <button class="v-btn" onclick="toggleMute('vid-p3', this)">🔇</button>
+            </div>
+          </div>
+          <span class="project-category cat-technology">Technology</span>
+        </div>
+        <div class="project-body">
+          <p class="project-name">Apple — Product Film</p>
+          <p class="project-meta">10 sec · 16:9 · Seedance 2.0</p>
+          <p class="project-summary">An abstract motion graphic for Apple — particle explosion, liquid metal logo, and golden light ribbons forming into a premium brand reveal.</p>
+          <div class="project-tags">
+            <span class="project-tag">Brand Film</span>
+            <span class="project-tag">Abstract</span>
+            <span class="project-tag">Motion Graphics</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-thumb">
+          <div class="video-wrap">
+            <video id="vid-p4" src="https://d8j0ntlcm91z4.cloudfront.net/user_39UIovq0myu4GeOCMsHj4PclXJ6/hf_20260613_221335_d019a58d-2a31-45f1-b888-64242bfb83ef.mp4" loop muted playsinline style="width:100%; height:200px; object-fit:cover; display:block;"></video>
+            <div class="video-controls">
+              <button class="v-btn" onclick="togglePlay('vid-p4', this)">▶</button>
+              <div class="v-progress" onclick="seekVideo('vid-p4', event, this)"><div class="v-progress-fill" id="prog-p4"></div></div>
+              <span class="v-time" id="time-p4">0:00</span>
+              <button class="v-btn" onclick="toggleMute('vid-p4', this)">🔇</button>
+            </div>
+          </div>
+          <span class="project-category cat-sports">Sports</span>
+        </div>
+        <div class="project-body">
+          <p class="project-name">Red Bull — Motion Campaign</p>
+          <p class="project-meta">5 sec · 9:16 · Seedance 2.0</p>
+          <p class="project-summary">A hyper-kinetic Red Bull teaser — neon blue shockwave, chrome bull charging, and liquid energy freeze frames for Reels and TikTok.</p>
+          <div class="project-tags">
+            <span class="project-tag">Kinetic</span>
+            <span class="project-tag">Social Ad</span>
+            <span class="project-tag">Energy</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="section-label">Who I Am</p>
+    <h2 class="section-title">About me</h2>
+    <div class="about-grid reveal">
+      <div>
+        <div class="about-avatar">
+          <div class="avatar-initials">LJ</div>
+          <div class="avatar-name">Lhouei Jay P. Amion</div>
+          <div class="avatar-badge">Lowww</div>
+        </div>
+      </div>
+      <div>
+        <div class="about-text">
+          <p>I create <strong>cinematic brand films, AI-powered commercials, title sequences, and visual experiences</strong> that help brands tell unforgettable stories.</p>
+          <p>By combining <strong>creative direction, storytelling, and advanced AI tools</strong>, I transform concepts into premium visual campaigns designed to capture attention and move audiences.</p>
+          <p>Based in the Philippines 🇵🇭, working globally — with a vision to build world-class motion design using the most powerful AI creative tools available today.</p>
+          <div class="about-tags">
+            <span class="pill p-orange">AI Motion Designer</span>
+            <span class="pill p-blue">Creative Director</span>
+            <span class="pill p-green">Philippines 🇵🇭</span>
+            <span class="pill p-purple">Visual Storyteller</span>
+          </div>
+        </div>
+        <div class="info-cards">
+          <div class="info-card"><div class="info-card-label">Age</div><div class="info-card-value">23 years old</div></div>
+          <div class="info-card"><div class="info-card-label">Location</div><div class="info-card-value">CSJDM, Bulacan</div></div>
+          <div class="info-card"><div class="info-card-label">Degree</div><div class="info-card-value">BS Info Tech</div></div>
+          <div class="info-card"><div class="info-card-label">Phone</div><div class="info-card-value">+63 992 023 0047</div></div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- SKILLS -->
   <section id="skills">
-    <p class="section-label">what I know</p>
+    <p class="section-label">What I Do</p>
     <h2 class="section-title">Skills</h2>
     <div class="skills-grid">
-
-      <div class="skill-card">
-        <div class="skill-card-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/></svg>
-          Motion & Multimedia
-        </div>
-        <div class="skill-tags">
-          <span class="skill-tag">Adobe Photoshop</span>
-          <span class="skill-tag">CapCut</span>
-          <span class="skill-tag">Motion Design</span>
-          <span class="skill-tag">Video Editing</span>
-        </div>
+      <div class="skill-card reveal">
+        <div class="skill-card-title"><span class="skill-dot"></span>Creative Direction</div>
+        <div class="skill-tags"><span class="skill-tag">Concept Development</span><span class="skill-tag">Creative Strategy</span><span class="skill-tag">Visual Storytelling</span></div>
       </div>
-
-      <div class="skill-card">
-        <div class="skill-card-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
-          Web Development
-        </div>
-        <div class="skill-tags">
-          <span class="skill-tag">HTML5</span>
-          <span class="skill-tag">CSS3</span>
-          <span class="skill-tag">JavaScript (Basic)</span>
-        </div>
+      <div class="skill-card reveal">
+        <div class="skill-card-title"><span class="skill-dot"></span>Motion Design</div>
+        <div class="skill-tags"><span class="skill-tag">Brand Films</span><span class="skill-tag">Title Sequences</span><span class="skill-tag">Kinetic Typography</span></div>
       </div>
-
-      <div class="skill-card">
-        <div class="skill-card-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V7c0-2-1-3-3-3H7C5 4 4 5 4 7z"/><path d="M9 11l2 2 4-4"/></svg>
-          Programming & DB
-        </div>
-        <div class="skill-tags">
-          <span class="skill-tag">Python (Basic)</span>
-          <span class="skill-tag">MySQL</span>
-          <span class="skill-tag">GitHub</span>
-        </div>
+      <div class="skill-card reveal">
+        <div class="skill-card-title"><span class="skill-dot"></span>AI Video Production</div>
+        <div class="skill-tags"><span class="skill-tag">Higgsfield AI</span><span class="skill-tag">Prompt Engineering</span><span class="skill-tag">AI Workflows</span></div>
       </div>
-
-      <div class="skill-card">
-        <div class="skill-card-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
-          IT Infrastructure
-        </div>
-        <div class="skill-tags">
-          <span class="skill-tag">Hardware Troubleshooting</span>
-          <span class="skill-tag">LAN/WAN Setup</span>
-          <span class="skill-tag">IP Configuration</span>
-          <span class="skill-tag">DNS Setup</span>
-          <span class="skill-tag">VoIP</span>
-        </div>
+      <div class="skill-card reveal">
+        <div class="skill-card-title"><span class="skill-dot"></span>Brand Film Production</div>
+        <div class="skill-tags"><span class="skill-tag">Luxury Campaigns</span><span class="skill-tag">Product Launch</span><span class="skill-tag">Commercial Ads</span></div>
       </div>
-
-      <div class="skill-card">
-        <div class="skill-card-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
-          AI & Automation
-        </div>
-        <div class="skill-tags">
-          <span class="skill-tag">Zapier</span>
-          <span class="skill-tag">AI Tools (Self-learning)</span>
-          <span class="skill-tag">Higgsfield AI</span>
-        </div>
+      <div class="skill-card reveal">
+        <div class="skill-card-title"><span class="skill-dot"></span>Storyboarding</div>
+        <div class="skill-tags"><span class="skill-tag">Scene Planning</span><span class="skill-tag">Shot Composition</span><span class="skill-tag">Narrative Flow</span></div>
       </div>
-
-      <div class="skill-card">
-        <div class="skill-card-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-          Professional Strengths
-        </div>
-        <div class="skill-tags">
-          <span class="skill-tag">Problem-solving</span>
-          <span class="skill-tag">Technical Documentation</span>
-          <span class="skill-tag">Client Support</span>
-          <span class="skill-tag">Adaptability</span>
-        </div>
+      <div class="skill-card reveal">
+        <div class="skill-card-title"><span class="skill-dot"></span>Multimedia & Tools</div>
+        <div class="skill-tags"><span class="skill-tag">Adobe Photoshop</span><span class="skill-tag">CapCut</span><span class="skill-tag">Web Development</span></div>
       </div>
+    </div>
+  </section>
 
+  <!-- CREATIVE PROCESS -->
+  <section id="process">
+    <p class="section-label">How I Work</p>
+    <h2 class="section-title">Creative Process</h2>
+    <div class="process-grid reveal">
+      <div class="process-step">
+        <div class="process-num">01</div>
+        <div class="process-title">Research</div>
+        <div class="process-desc">Understanding the brand, audience, and competitive landscape.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-num">02</div>
+        <div class="process-title">Concept Development</div>
+        <div class="process-desc">Crafting the creative idea, narrative, and visual direction.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-num">03</div>
+        <div class="process-title">Storyboarding</div>
+        <div class="process-desc">Mapping every scene, camera movement, and transition.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-num">04</div>
+        <div class="process-title">Prompt Design</div>
+        <div class="process-desc">Engineering precise AI prompts to match the creative vision.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-num">05</div>
+        <div class="process-title">Production</div>
+        <div class="process-desc">Generating and refining using next-generation AI tools.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-num">06</div>
+        <div class="process-title">Final Delivery</div>
+        <div class="process-desc">Premium output ready for campaign, broadcast, or launch.</div>
+      </div>
     </div>
   </section>
 
   <!-- EXPERIENCE -->
   <section id="experience">
-    <p class="section-label">where I've been</p>
+    <p class="section-label">Where I've Been</p>
     <h2 class="section-title">Experience</h2>
-
-    <div class="exp-card">
+    <div class="exp-card reveal">
       <div class="exp-header">
         <div>
           <div class="exp-title">IT Support Intern</div>
@@ -509,39 +675,23 @@
         <li>Collaborated with IT teams to resolve technical escalations.</li>
       </ul>
     </div>
-
     <div style="margin-top: 2rem;">
       <div class="section-label" style="margin-bottom: 1rem;">Seminars & Training</div>
       <div class="seminars-grid">
-        <div class="seminar-card">
-          <div class="seminar-date">January 2025</div>
-          <div class="seminar-title">IT Project Management and Business Analysis</div>
-        </div>
-        <div class="seminar-card">
-          <div class="seminar-date">January 2025</div>
-          <div class="seminar-title">Social Etiquette in the Modern World</div>
-        </div>
-        <div class="seminar-card">
-          <div class="seminar-date">January 2025</div>
-          <div class="seminar-title">Work Ethics</div>
-        </div>
-        <div class="seminar-card">
-          <div class="seminar-date">May 2021</div>
-          <div class="seminar-title">Contact Center Services NC II</div>
-        </div>
-        <div class="seminar-card">
-          <div class="seminar-date">March 2016</div>
-          <div class="seminar-title">Microsoft Word Workshop</div>
-        </div>
+        <div class="seminar-card"><div class="seminar-date">January 2025</div><div class="seminar-title">IT Project Management and Business Analysis</div></div>
+        <div class="seminar-card"><div class="seminar-date">January 2025</div><div class="seminar-title">Social Etiquette in the Modern World</div></div>
+        <div class="seminar-card"><div class="seminar-date">January 2025</div><div class="seminar-title">Work Ethics</div></div>
+        <div class="seminar-card"><div class="seminar-date">May 2021</div><div class="seminar-title">Contact Center Services NC II</div></div>
+        <div class="seminar-card"><div class="seminar-date">March 2016</div><div class="seminar-title">Microsoft Word Workshop</div></div>
       </div>
     </div>
   </section>
 
   <!-- EDUCATION -->
   <section id="education">
-    <p class="section-label">where I studied</p>
+    <p class="section-label">Where I Studied</p>
     <h2 class="section-title">Education</h2>
-    <div class="edu-card">
+    <div class="edu-card reveal">
       <div class="edu-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
       </div>
@@ -553,81 +703,13 @@
     </div>
   </section>
 
-  <!-- PROJECTS -->
-  <section id="projects">
-    <p class="section-label">selected work</p>
-    <h2 class="section-title">Projects</h2>
-
-    <!-- FEATURED: Apple Mock Project -->
-    <div style="margin-bottom: 2rem;">
-      <div style="display:flex; align-items:center; gap:10px; margin-bottom:1rem;">
-        <span class="pill p-orange">Featured</span>
-        <span style="font-size:12px; color:var(--muted);">Apple × Lowww — Motion Graphic</span>
-      </div>
-      <div style="border:0.5px solid var(--border); border-radius:12px; overflow:hidden; background:var(--bg3);">
-        <video
-          src="https://d8j0ntlcm91z4.cloudfront.net/user_39UIovq0myu4GeOCMsHj4PclXJ6/hf_20260613_212105_3cb2c637-dbaa-400f-8f6c-c08bdff71f8c.mp4"
-          autoplay loop muted playsinline
-          style="width:100%; display:block; border-radius:12px 12px 0 0;"
-        ></video>
-        <div style="padding:1.2rem 1.5rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
-          <div>
-            <p style="font-size:15px; font-weight:500; color:var(--text); margin-bottom:4px;">Apple — Abstract Motion Graphic</p>
-            <p style="font-size:12px; color:var(--muted);">Cinematic brand video · 10 sec · 16:9 · Classic Motion</p>
-          </div>
-          <div style="display:flex; gap:8px; flex-wrap:wrap;">
-            <span class="pill p-orange">Motion Graphics</span>
-            <span class="pill p-blue">Brand Film</span>
-            <span class="pill p-purple">AI Generated</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- More Projects Grid -->
-    <div class="projects-grid">
-      <div class="project-card">
-        <video src="https://d8j0ntlcm91z4.cloudfront.net/user_39UIovq0myu4GeOCMsHj4PclXJ6/hf_20260613_212105_3cb2c637-dbaa-400f-8f6c-c08bdff71f8c.mp4" autoplay loop muted playsinline style="width:100%; height:140px; object-fit:cover; display:block;"></video>
-        <div class="project-body">
-          <p class="project-name">Apple — Abstract Motion Graphic</p>
-          <p class="project-type">Brand Film · 10 sec · 16:9</p>
-          <span class="pill p-orange">Branding</span>
-        </div>
-      </div>
-      <div class="project-card">
-        <video src="https://d8j0ntlcm91z4.cloudfront.net/user_39UIovq0myu4GeOCMsHj4PclXJ6/hf_20260613_221335_d019a58d-2a31-45f1-b888-64242bfb83ef.mp4" autoplay loop muted playsinline style="width:100%; height:140px; object-fit:cover; display:block;"></video>
-        <div class="project-body">
-          <p class="project-name">Red Bull — Hyper Kinetic Teaser</p>
-          <p class="project-type">Energy Drink Ad · 5 sec · 9:16</p>
-          <span class="pill p-blue">Ads</span>
-        </div>
-      </div>
-      <div class="project-card">
-        <div class="project-thumb t3">🎬</div>
-        <div class="project-body">
-          <p class="project-name">Title Sequence</p>
-          <p class="project-type">Broadcast motion — Coming soon</p>
-          <span class="pill p-green">Broadcast</span>
-        </div>
-      </div>
-      <div class="project-card">
-        <div class="project-thumb t4">📦</div>
-        <div class="project-body">
-          <p class="project-name">Product Launch Video</p>
-          <p class="project-type">Commercial — Coming soon</p>
-          <span class="pill p-pink">Commercial</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- CONTACT -->
   <section id="contact">
-    <p class="section-label">get in touch</p>
-    <h2 class="section-title">Let's work together</h2>
-    <div class="contact-wrap">
+    <p class="section-label">Get In Touch</p>
+    <h2 class="section-title">Let's create something unforgettable.</h2>
+    <div class="contact-wrap reveal">
       <div class="contact-info">
-        <p>Got a project in mind? Whether it's a logo animation, a social media ad, or something totally different — I'm open to it. Let's create something cool.</p>
+        <p>Have a project in mind? Whether it's a luxury product launch, title sequence, or cinematic brand film — let's build something extraordinary together.</p>
         <a href="mailto:lhoueijayamion@gmail.com" class="contact-detail">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
           lhoueijayamion@gmail.com
@@ -644,74 +726,117 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
           facebook.com/mamalhouei
         </a>
+        <a href="https://github.com/Lowieeed" target="_blank" class="contact-detail">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+          github.com/Lowieeed
+        </a>
       </div>
       <div>
         <form id="contact-form">
-        <div class="contact-grid">
-          <input type="text" id="name" name="name" placeholder="Your name" required />
-          <input type="email" id="email" name="email" placeholder="Your email" required />
-          <input type="text" id="project" name="project" placeholder="Project type (logo animation, social ads...)" class="full" />
-          <textarea id="message" name="message" placeholder="Tell me about your project..." class="full" required></textarea>
-        </div>
-        <button type="submit" class="send-btn" id="submit-btn">Send message →</button>
-        </form>
-
-        <div id="success-popup" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; z-index:999; background:rgba(0,0,0,0.7); align-items:center; justify-content:center;">
-          <div style="background:#1A1A1A; border:0.5px solid rgba(255,255,255,0.12); border-radius:16px; padding:2.5rem 2rem; max-width:380px; width:90%; text-align:center;">
-            <div style="width:56px; height:56px; border-radius:50%; background:#D85A30; display:flex; align-items:center; justify-content:center; margin:0 auto 1.2rem;">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" style="width:24px;height:24px;"><path d="M5 13l4 4L19 7"/></svg>
-            </div>
-            <p style="font-family:'Syne',sans-serif; font-size:1.2rem; font-weight:800; color:#F0EDE8; margin-bottom:0.5rem;">Message Sent!</p>
-            <p style="font-size:13px; color:#888; line-height:1.7; margin-bottom:1.5rem;">Thanks for reaching out! I'll get back to you as soon as possible.</p>
-            <button onclick="document.getElementById('success-popup').style.display='none'" style="padding:10px 28px; border-radius:8px; background:#D85A30; color:#fff; font-size:14px; font-weight:500; border:none; cursor:pointer;">Got it</button>
+          <div class="contact-grid">
+            <input type="text" id="name" name="name" placeholder="Your name" required />
+            <input type="email" id="email" name="email" placeholder="Your email" required />
+            <input type="text" id="project" name="project" placeholder="Project type (luxury campaign, title sequence...)" class="full" />
+            <textarea id="message" name="message" placeholder="Tell me about your project..." class="full" required></textarea>
           </div>
-        </div>
-
-        <script>
-          document.getElementById('contact-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const btn = document.getElementById('submit-btn');
-            btn.textContent = 'Sending...';
-            btn.disabled = true;
-            const data = {
-              name: document.getElementById('name').value,
-              email: document.getElementById('email').value,
-              project: document.getElementById('project').value,
-              message: document.getElementById('message').value
-            };
-            try {
-              const res = await fetch('https://formspree.io/f/xpqekaod', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify(data)
-              });
-              if (res.ok) {
-                document.getElementById('success-popup').style.display = 'flex';
-                document.getElementById('contact-form').reset();
-              } else {
-                alert('Something went wrong. Please try again.');
-              }
-            } catch(err) {
-              alert('Something went wrong. Please try again.');
-            }
-            btn.textContent = 'Send message →';
-            btn.disabled = false;
-          });
-        </script>
+          <button type="submit" class="send-btn" id="submit-btn">Send message →</button>
+        </form>
       </div>
     </div>
   </section>
 
+  <!-- SUCCESS POPUP -->
+  <div id="success-popup">
+    <div class="popup-inner">
+      <div class="popup-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" style="width:24px;height:24px;"><path d="M5 13l4 4L19 7"/></svg>
+      </div>
+      <p class="popup-title">Message Sent!</p>
+      <p class="popup-sub">Thanks for reaching out! I'll get back to you as soon as possible.</p>
+      <button class="popup-btn" onclick="document.getElementById('success-popup').style.display='none'">Got it</button>
+    </div>
+  </div>
+
   <!-- FOOTER -->
   <footer>
-    <div class="footer-logo">LOW<span>WW</span></div>
-    <p>© 2025 Lowww · Lhouei Jay P. Amion · All rights reserved.</p>
-    <div class="social-links">
-      <a href="https://www.instagram.com/xzxzbczbz/" target="_blank">Instagram</a>
-      <a href="https://www.facebook.com/mamalhouei" target="_blank">Facebook</a>
-      <a href="mailto:lhoueijayamion@gmail.com">Email</a>
+    <p class="footer-cta">Let's create something <em>unforgettable.</em></p>
+    <p style="color:var(--muted); font-size:14px; margin-top:0.5rem;">Available for projects worldwide.</p>
+    <div class="footer-bottom">
+      <div class="footer-logo">LOW<span>WW</span></div>
+      <p>© 2025 Lhouei Jay P. Amion · All rights reserved.</p>
+      <div class="social-links">
+        <a href="https://www.instagram.com/xzxzbczbz/" target="_blank">Instagram</a>
+        <a href="https://www.facebook.com/mamalhouei" target="_blank">Facebook</a>
+        <a href="mailto:lhoueijayamion@gmail.com">Email</a>
+        <a href="https://github.com/Lowieeed" target="_blank">GitHub</a>
+      </div>
     </div>
   </footer>
+
+  <script>
+    // SCROLL REVEAL
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.1 });
+    reveals.forEach(r => observer.observe(r));
+
+    // VIDEO CONTROLS
+    function togglePlay(id, btn) {
+      const v = document.getElementById(id);
+      if (v.paused) { v.play(); btn.textContent = '⏸'; } else { v.pause(); btn.textContent = '▶'; }
+    }
+    function toggleMute(id, btn) {
+      const v = document.getElementById(id);
+      v.muted = !v.muted;
+      btn.textContent = v.muted ? '🔇' : '🔊';
+    }
+    function seekVideo(id, event, bar) {
+      const v = document.getElementById(id);
+      const rect = bar.getBoundingClientRect();
+      const pct = (event.clientX - rect.left) / rect.width;
+      v.currentTime = pct * v.duration;
+    }
+    // Progress bars
+    document.querySelectorAll('video').forEach(v => {
+      v.addEventListener('timeupdate', () => {
+        const id = v.id;
+        const fill = document.getElementById('prog-' + id.replace('vid-', ''));
+        const time = document.getElementById('time-' + id.replace('vid-', ''));
+        if (fill && v.duration) fill.style.width = (v.currentTime / v.duration * 100) + '%';
+        if (time) {
+          const m = Math.floor(v.currentTime / 60);
+          const s = Math.floor(v.currentTime % 60).toString().padStart(2, '0');
+          time.textContent = m + ':' + s;
+        }
+      });
+    });
+
+    // CONTACT FORM
+    document.getElementById('contact-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submit-btn');
+      btn.textContent = 'Sending...'; btn.disabled = true;
+      const data = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        project: document.getElementById('project').value,
+        message: document.getElementById('message').value
+      };
+      try {
+        const res = await fetch('https://formspree.io/f/xpqekaod', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        if (res.ok) {
+          document.getElementById('success-popup').style.display = 'flex';
+          document.getElementById('contact-form').reset();
+        } else { alert('Something went wrong. Please try again.'); }
+      } catch(err) { alert('Something went wrong. Please try again.'); }
+      btn.textContent = 'Send message →'; btn.disabled = false;
+    });
+  </script>
 
 </body>
 </html>
