@@ -140,7 +140,7 @@
       transition: border-color 0.2s, transform 0.2s;
     }
     .showreel-mini:hover { border-color: rgba(216,90,48,0.4); transform: translateY(-2px); }
-    .showreel-mini video { width: 100%; height: 160px; object-fit: cover; display: block; }
+    .showreel-mini video { width: 100%; aspect-ratio: 16/9; object-fit: contain; display: block; background: #000; }
     .showreel-mini-info { padding: 0.8rem 1rem; }
     .showreel-mini-title { font-size: 13px; font-weight: 500; color: var(--text); }
     .showreel-mini-type { font-size: 11px; color: var(--muted); margin-top: 2px; }
@@ -177,7 +177,7 @@
     }
     .project-card:hover { border-color: rgba(216,90,48,0.4); transform: translateY(-4px); }
     .project-thumb { position: relative; overflow: hidden; }
-    .project-thumb video { width: 100%; height: 200px; object-fit: cover; display: block; }
+    .project-thumb video { width: 100%; aspect-ratio: 16/9; object-fit: contain; display: block; background: #000; }
     .project-thumb-placeholder { width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; font-size: 3rem; }
     .project-category {
       position: absolute; top: 12px; left: 12px;
@@ -397,7 +397,7 @@
       <!-- FEATURED: Lamborghini -->
       <div class="showreel-featured reveal">
         <div class="video-wrap">
-          <video id="vid-lambo" src="https://d8j0ntlcm91z4.cloudfront.net/user_39UIovq0myu4GeOCMsHj4PclXJ6/hf_20260613_231948_17ecfff7-f52a-4102-b97a-5774110a3dd9.mp4" loop muted playsinline style="width:100%; max-height:420px; object-fit:cover; display:block;"></video>
+          <video id="vid-lambo" src="https://d8j0ntlcm91z4.cloudfront.net/user_39UIovq0myu4GeOCMsHj4PclXJ6/hf_20260613_231948_17ecfff7-f52a-4102-b97a-5774110a3dd9.mp4" loop muted playsinline style="width:100%; display:block; aspect-ratio:16/9;"></video>
           <div class="video-controls">
             <button class="v-btn" onclick="togglePlay('vid-lambo', this)">▶</button>
             <div class="v-progress" onclick="seekVideo('vid-lambo', event, this)"><div class="v-progress-fill" id="prog-lambo"></div></div>
