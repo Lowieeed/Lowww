@@ -113,13 +113,17 @@
     #work { background: var(--bg); }
     .work-featured {
       border: 0.5px solid var(--border); border-radius: 16px; overflow: hidden;
-      background: var(--bg2); margin-bottom: 16px;
+      background: var(--bg2); margin-bottom: 24px;
       transition: border-color 0.3s;
     }
     .work-featured:hover { border-color: rgba(216,90,48,0.3); }
-    .video-wrap { position: relative; }
-    .video-wrap video { width: 100%; display: block; aspect-ratio: 16/9; background: #000; }
-    .video-wrap video.vertical { aspect-ratio: 9/16; max-height: 480px; margin: 0 auto; }
+
+    /* FIX #1 & #3: Video wrap — preserve native aspect ratio */
+    .video-wrap { position: relative; background: #000; overflow: hidden; }
+    .video-wrap video { width: 100%; height: auto; display: block; object-fit: contain; background: #000; }
+    /* FIX #3: Vertical video display */
+    .video-wrap video.vertical { width: auto; height: 560px; max-width: 100%; object-fit: contain; margin: 0 auto; display: block; }
+
     .video-controls {
       position: absolute; bottom: 0; left: 0; right: 0;
       padding: 0.8rem 1rem; background: linear-gradient(transparent, rgba(0,0,0,0.9));
@@ -148,13 +152,16 @@
     .work-tags { display: flex; gap: 6px; flex-wrap: wrap; }
     .work-tag { font-size: 10px; color: var(--muted); border: 0.5px solid var(--border2); padding: 3px 10px; border-radius: 4px; letter-spacing: 0.5px; }
 
-    .work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    /* FIX #5: Improved work grid */
+    .work-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 24px; }
+
+    /* FIX #6: Premium video card */
     .work-card {
-      border: 0.5px solid var(--border); border-radius: 12px; overflow: hidden;
-      background: var(--bg2); transition: border-color 0.3s, transform 0.3s;
+      border: 0.5px solid var(--border); border-radius: 16px; overflow: hidden;
+      background: var(--bg2); transition: all 0.3s ease;
     }
-    .work-card:hover { border-color: rgba(216,90,48,0.3); transform: translateY(-3px); }
-    .work-card .video-wrap video { aspect-ratio: 16/9; }
+    .work-card:hover { transform: translateY(-4px); border-color: rgba(216,90,48,0.3); }
+
     .work-card-info { padding: 1rem 1.2rem; border-top: 0.5px solid var(--border); }
     .work-card-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
     .work-card-meta { font-size: 11px; color: var(--muted); }
@@ -167,13 +174,6 @@
     .cat-tech { background: rgba(24,95,165,0.15); color: #80B4E8; }
     .cat-sports { background: rgba(59,109,17,0.15); color: #90C860; }
     .cat-entertainment { background: rgba(83,74,183,0.15); color: #B0A8F0; }
-    .hbo-placeholder {
-      aspect-ratio: 16/9; background: var(--bg3);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 8px;
-    }
-    .hbo-placeholder-text { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: rgba(255,255,255,0.15); letter-spacing: 8px; }
-    .hbo-placeholder-sub { font-size: 10px; color: var(--muted2); letter-spacing: 3px; text-transform: uppercase; }
 
     /* SERVICES */
     #services { background: var(--bg2); }
@@ -181,7 +181,6 @@
     .service-card { background: var(--bg2); padding: 2rem 1.8rem; transition: background 0.2s; position: relative; overflow: hidden; }
     .service-card:hover { background: var(--bg3); }
     .service-num { font-family: 'Syne', sans-serif; font-size: 3rem; font-weight: 800; color: var(--border2); line-height: 1; margin-bottom: 1.2rem; }
-    .service-icon { font-size: 1.5rem; margin-bottom: 1rem; }
     .service-title { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 0.6rem; }
     .service-desc { font-size: 12px; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
     .service-tags { display: flex; flex-wrap: wrap; gap: 5px; }
@@ -267,10 +266,12 @@
       .nav-links li:nth-child(n+3) { display: none; }
       .hero, section { padding: 5rem 1.2rem 3rem; }
       .hero-stats { gap: 1.5rem; }
-      .work-grid, .contact-layout, .about-layout, .exp-layout { grid-template-columns: 1fr; }
+      .work-grid { grid-template-columns: 1fr; }
+      .contact-layout, .about-layout, .exp-layout { grid-template-columns: 1fr; }
       .about-left { position: static; }
       .contact-form-grid { grid-template-columns: 1fr; }
       footer { flex-direction: column; text-align: center; }
+      .video-wrap video.vertical { height: 380px; }
     }
   </style>
 </head>
@@ -344,12 +345,12 @@
   <h2 class="section-title">Featured Projects</h2>
   <p class="section-sub">A curated selection of cinematic motion graphics and AI-powered commercials. Every project is a spec concept created to demonstrate range, style, and creative direction.</p>
 
-  <!-- FEATURED: Lamborghini -->
+  <!-- FEATURED: Lamborghini (full-width hero) -->
   <div class="work-featured reveal">
     <div class="video-wrap">
-      <video id="vid-lambo" src="https://d8j0ntlcm91z4.cloudfront.net/user_39UIovq0myu4GeOCMsHj4PclXJ6/hf_20260613_231948_17ecfff7-f52a-4102-b97a-5774110a3dd9.mp4" loop muted playsinline></video>
+      <video id="vid-lambo" src="https://d8j0ntlcm91z4.cloudfront.net/user_39UIovq0myu4GeOCMsHj4PclXJ6/hf_20260613_231948_17ecfff7-f52a-4102-b97a-5774110a3dd9.mp4" loop muted playsinline autoplay></video>
       <div class="video-controls">
-        <button class="v-btn" onclick="togglePlay('vid-lambo',this)">▶</button>
+        <button class="v-btn" onclick="togglePlay('vid-lambo',this)">⏸</button>
         <div class="v-progress" onclick="seekVid('vid-lambo',event,this)"><div class="v-progress-fill" id="prog-vid-lambo"></div></div>
         <span class="v-time" id="time-vid-lambo">0:00</span>
         <button class="v-btn" onclick="toggleMute('vid-lambo',this)">🔇</button>
@@ -370,13 +371,14 @@
     </div>
   </div>
 
-  <!-- GRID: Apple + Red Bull -->
-  <div class="work-grid" style="margin-top:16px;">
+  <!-- FIX #2 & #4: Grid with Apple + Red Bull (portrait), no HBO placeholder -->
+  <div class="work-grid">
+    <!-- FIX #2: Apple — portrait/vertical video -->
     <div class="work-card reveal">
       <div class="video-wrap">
-        <video id="vid-apple" src="https://d8j0ntlcm91z4.cloudfront.net/user_39UIovq0myu4GeOCMsHj4PclXJ6/hf_20260613_212105_3cb2c637-dbaa-400f-8f6c-c08bdff71f8c.mp4" loop muted playsinline></video>
+        <video id="vid-apple" src="https://d8j0ntlcm91z4.cloudfront.net/user_39UIovq0myu4GeOCMsHj4PclXJ6/hf_20260613_212105_3cb2c637-dbaa-400f-8f6c-c08bdff71f8c.mp4" class="vertical" loop muted playsinline autoplay></video>
         <div class="video-controls">
-          <button class="v-btn" onclick="togglePlay('vid-apple',this)">▶</button>
+          <button class="v-btn" onclick="togglePlay('vid-apple',this)">⏸</button>
           <div class="v-progress" onclick="seekVid('vid-apple',event,this)"><div class="v-progress-fill" id="prog-vid-apple"></div></div>
           <span class="v-time" id="time-vid-apple">0:00</span>
           <button class="v-btn" onclick="toggleMute('vid-apple',this)">🔇</button>
@@ -389,11 +391,12 @@
       </div>
     </div>
 
+    <!-- FIX #2: Red Bull — portrait/vertical video -->
     <div class="work-card reveal">
       <div class="video-wrap">
-        <video id="vid-redbull" src="https://d8j0ntlcm91z4.cloudfront.net/user_39UIovq0myu4GeOCMsHj4PclXJ6/hf_20260613_221335_d019a58d-2a31-45f1-b888-64242bfb83ef.mp4" loop muted playsinline></video>
+        <video id="vid-redbull" src="https://d8j0ntlcm91z4.cloudfront.net/user_39UIovq0myu4GeOCMsHj4PclXJ6/hf_20260613_221335_d019a58d-2a31-45f1-b888-64242bfb83ef.mp4" class="vertical" loop muted playsinline autoplay></video>
         <div class="video-controls">
-          <button class="v-btn" onclick="togglePlay('vid-redbull',this)">▶</button>
+          <button class="v-btn" onclick="togglePlay('vid-redbull',this)">⏸</button>
           <div class="v-progress" onclick="seekVid('vid-redbull',event,this)"><div class="v-progress-fill" id="prog-vid-redbull"></div></div>
           <span class="v-time" id="time-vid-redbull">0:00</span>
           <button class="v-btn" onclick="toggleMute('vid-redbull',this)">🔇</button>
@@ -405,20 +408,8 @@
         <div class="work-card-meta">Spec Project · 5 sec · Social Media Ad</div>
       </div>
     </div>
-
-    <!-- HBO Placeholder -->
-    <div class="work-card reveal" style="grid-column: 1 / -1;">
-      <div class="hbo-placeholder">
-        <div class="hbo-placeholder-text">HBO</div>
-        <div class="hbo-placeholder-sub">Title Sequence — Coming Soon</div>
-      </div>
-      <div class="work-card-info">
-        <div class="work-cat cat-entertainment">Entertainment</div>
-        <div class="work-card-title">HBO — "The Eye" Title Sequence</div>
-        <div class="work-card-meta">Spec Project · 10 sec · Title Sequence · In Production</div>
-      </div>
-    </div>
   </div>
+  <!-- HBO placeholder removed (Fix #4) -->
 </section>
 
 <!-- SERVICES -->
@@ -590,7 +581,12 @@
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-  // VIDEO CONTROLS
+  // FIX #7: Autoplay all videos on load
+  document.querySelectorAll('video').forEach(video => {
+    video.play().catch(() => {}); // catch in case browser blocks autoplay
+  });
+
+  // VIDEO CONTROLS — toggle button reflects current state
   function togglePlay(id, btn) {
     const v = document.getElementById(id);
     if (v.paused) { v.play(); btn.textContent = '⏸'; } else { v.pause(); btn.textContent = '▶'; }
