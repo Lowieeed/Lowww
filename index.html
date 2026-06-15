@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="motion-interactions.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -339,7 +340,7 @@
 </div>
 
 <!-- FEATURED PROJECTS -->
-<section id="work">
+<section id="work" data-reveal>
   <p class="section-eyebrow">Selected Work</p>
   <h2 class="section-title">Featured Projects</h2>
   <p class="section-sub">A curated selection of cinematic motion graphics and AI-powered commercials. Every project is a spec concept created to demonstrate range, style, and creative direction.</p>
@@ -641,5 +642,6 @@
     btn.textContent = 'Send Message →'; btn.disabled = false;
   });
 </script>
+  <script src="motion-interactions.js" defer></script>
 </body>
 </html>
