@@ -3,302 +3,696 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lowww — Motion Designer & AI Commercial Creator</title>
+  <title>LOWWW — Motion Designer & Art Director</title>
+  <meta name="description" content="Lhouei Jay Amion — Motion Designer & Art Director. Cinematic motion graphics, brand films, and commercial production." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="motion-interactions.css">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    /* ── TOKENS ─────────────────────────────────────── */
     :root {
-      --orange: #D85A30; --orange-dark: #993C1D; --orange-light: #FAECE7;
-      --bg: #080808; --bg2: #101010; --bg3: #181818;
-      --border: rgba(255,255,255,0.06); --border2: rgba(255,255,255,0.12);
-      --text: #F0EDE8; --muted: #666; --muted2: #444;
-      --blue-light: #E6F1FB; --blue: #185FA5;
-      --green-light: #EAF3DE; --green: #3B6D11;
-      --pink-light: #FBEAF0; --pink: #993556;
-      --amber-light: #FAEEDA; --amber: #854F0B;
-      --purple-light: #EEEDFE; --purple: #534AB7;
-      --teal-light: #E1F5EE; --teal: #0F6E56;
+      --orange: #D85A30;
+      --orange-dark: #993C1D;
+      --bg: #080808;
+      --bg2: #0e0e0e;
+      --bg3: #141414;
+      --border: rgba(255,255,255,0.06);
+      --border2: rgba(255,255,255,0.10);
+      --text: #F0EDE8;
+      --muted: rgba(240,237,232,0.38);
+      --muted2: rgba(240,237,232,0.18);
     }
+
+    /* ── RESET ──────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      cursor: none;
+    }
+    img, video { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
 
-    /* REVEAL */
-    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    /* ── CUSTOM CURSOR ──────────────────────────────── */
+    #cur-dot {
+      position: fixed; top: 0; left: 0;
+      width: 5px; height: 5px;
+      background: var(--orange);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      transition: width .2s, height .2s;
+      will-change: transform;
+    }
+    #cur-ring {
+      position: fixed; top: 0; left: 0;
+      width: 32px; height: 32px;
+      border: 1px solid rgba(216,90,48,0.4);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99998;
+      transform: translate(-50%, -50%);
+      transition: width .3s, height .3s, border-color .3s;
+      will-change: transform;
+    }
+    #cur-ring.hov {
+      width: 56px; height: 56px;
+      border-color: rgba(216,90,48,0.8);
+    }
+    * { cursor: none !important; }
+
+    /* ── NAV ────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.6rem 3rem;
+      transition: padding .4s ease, background .4s ease, backdrop-filter .4s ease;
+    }
+    nav.scrolled {
+      padding: 1rem 3rem;
+      background: rgba(8,8,8,0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 0.5px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.05rem; font-weight: 800;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: var(--text);
+    }
+    .nav-logo span { color: var(--orange); }
+    .nav-links {
+      display: flex; gap: 2.5rem; list-style: none; align-items: center;
+    }
+    .nav-links a {
+      font-size: 11px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted);
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      padding: 9px 22px !important;
+      border: 0.5px solid var(--border2) !important;
+      border-radius: 4px !important;
+      color: var(--text) !important;
+      transition: border-color .2s, color .2s !important;
+    }
+    .nav-cta:hover {
+      border-color: var(--orange) !important;
+      color: var(--orange) !important;
+    }
+
+    /* ── REVEAL ─────────────────────────────────────── */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity .75s cubic-bezier(.16,1,.3,1),
+                  transform .75s cubic-bezier(.16,1,.3,1);
+    }
     .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-d1 { transition-delay: .1s; }
+    .reveal-d2 { transition-delay: .2s; }
+    .reveal-d3 { transition-delay: .3s; }
+    .reveal-d4 { transition-delay: .4s; }
 
-  .logo { 
-  font-family: 'Syne', sans-serif; 
-  font-size: 1.2rem; 
-  font-weight: 800; 
-  letter-spacing: 3px; 
-  color: var(--text); 
-  text-decoration: none;
-  position: relative;
-  display: inline-block;
-  overflow: hidden;
-}
-
-.logo::after {
-  content: '';
-  position: absolute;
-  top: 0; left: -75%;
-  width: 50%; height: 100%;
-  background: linear-gradient(
-    120deg,
-    transparent 30%,
-    rgba(212, 175, 55, 0.5) 50%,
-    transparent 70%
-  );
-  transform: skewX(-20deg);
-  opacity: 0;
-}
-
-.logo:hover::after {
-  animation: shimmer 0.6s ease forwards;
-}
-
-@keyframes shimmer {
-  0%   { left: -75%; opacity: 1; }
-  100% { left: 125%; opacity: 1; }
-}
-    /* HERO */
+    /* ── HERO ───────────────────────────────────────── */
     .hero {
-      min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
-      padding: 8rem 2.5rem 5rem; position: relative; overflow: hidden;
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 0 3rem 7vh;
+      position: relative; overflow: hidden;
     }
-    .hero-glow {
-      position: absolute; inset: 0; pointer-events: none;
-      background: radial-gradient(ellipse at 65% 45%, rgba(216,90,48,0.1) 0%, transparent 55%),
-                  radial-gradient(ellipse at 25% 75%, rgba(83,74,183,0.07) 0%, transparent 45%);
+    .hero-noise {
+      position: absolute; inset: 0; pointer-events: none; z-index: 0;
+      background:
+        radial-gradient(ellipse 70% 55% at 75% 38%, rgba(216,90,48,.08) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 20% 70%, rgba(83,74,183,.05) 0%, transparent 50%);
     }
-    .hero-tag {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 11px; letter-spacing: 3px; color: var(--orange);
-      text-transform: uppercase; margin-bottom: 2rem;
+    .hero-content { position: relative; z-index: 1; max-width: 1100px; }
+
+    .hero-avail {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 2.5rem;
     }
-    .hero-tag-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); animation: pulse 2s infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .avail-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #3ecf6a;
+      box-shadow: 0 0 0 0 rgba(62,207,106,.4);
+      animation: ping 2s ease infinite;
+    }
+    @keyframes ping {
+      0%,100% { box-shadow: 0 0 0 0 rgba(62,207,106,.4); }
+      50%      { box-shadow: 0 0 0 6px rgba(62,207,106,0); }
+    }
+
     .hero-title {
       font-family: 'Syne', sans-serif;
-      font-size: clamp(2.8rem, 7vw, 5.8rem);
-      font-weight: 800; line-height: 1.0; color: var(--text);
-      margin-bottom: 1.8rem; max-width: 820px;
+      font-size: clamp(3.2rem, 7.5vw, 7rem);
+      font-weight: 800; line-height: .96;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 2.5rem;
     }
+    .hero-title .line { display: block; overflow: hidden; }
+    .hero-title .line-inner {
+      display: block;
+      transform: translateY(110%);
+      transition: transform .9s cubic-bezier(.16,1,.3,1);
+    }
+    .hero-title .line-inner.show { transform: translateY(0); }
     .hero-title em { font-style: normal; color: var(--orange); }
-    .hero-sub { font-size: 1rem; color: var(--muted); max-width: 500px; line-height: 1.9; margin-bottom: 2.5rem; }
-    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 4rem; }
+
+    .hero-bottom {
+      display: flex; justify-content: space-between;
+      align-items: flex-end; gap: 2rem; flex-wrap: wrap;
+    }
+    .hero-sub {
+      font-size: .9rem; color: var(--muted);
+      max-width: 380px; line-height: 1.9;
+    }
+    .hero-actions { display: flex; gap: 1rem; align-items: center; }
     .btn-primary {
-      padding: 14px 32px; border-radius: 6px; background: var(--orange); color: #fff;
-      font-size: 13px; font-weight: 500; border: none; letter-spacing: 0.5px;
-      cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
-      transition: background 0.2s, transform 0.15s;
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 28px; background: var(--orange);
+      color: #fff; font-size: 12px; font-weight: 500;
+      letter-spacing: 1px; text-transform: uppercase;
+      border-radius: 4px; border: none;
+      transition: background .2s, transform .15s;
     }
     .btn-primary:hover { background: var(--orange-dark); transform: translateY(-1px); }
-    .btn-outline {
-      padding: 14px 32px; border-radius: 6px; background: transparent; color: var(--text);
-      font-size: 13px; font-weight: 500; letter-spacing: 0.5px;
-      border: 0.5px solid var(--border2); cursor: pointer; text-decoration: none;
-      display: inline-flex; align-items: center; gap: 8px; transition: border-color 0.2s, transform 0.15s;
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; letter-spacing: 1px; text-transform: uppercase;
+      color: var(--muted); border-bottom: 0.5px solid var(--border2);
+      padding-bottom: 2px;
+      transition: color .2s, border-color .2s;
     }
-    .btn-outline:hover { border-color: rgba(255,255,255,0.25); transform: translateY(-1px); }
-    .hero-divider { width: 100%; height: 0.5px; background: var(--border); margin-bottom: 2rem; }
-    .hero-stats { display: flex; gap: 3rem; }
-    .hero-stat-num { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--text); }
-    .hero-stat-label { font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 2px; }
+    .btn-ghost:hover { color: var(--text); border-color: var(--text); }
 
-    /* TICKER */
-    .ticker { border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); padding: 0.85rem 0; overflow: hidden; background: var(--bg2); }
-    .ticker-inner { display: flex; gap: 10px; animation: ticker 28s linear infinite; width: max-content; }
-    @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    .pill { padding: 4px 14px; border-radius: 999px; font-size: 11px; font-weight: 500; white-space: nowrap; letter-spacing: 0.5px; }
-    .p-orange { background: var(--orange-light); color: var(--orange-dark); }
-    .p-blue { background: var(--blue-light); color: var(--blue); }
-    .p-green { background: var(--green-light); color: var(--green); }
-    .p-pink { background: var(--pink-light); color: var(--pink); }
-    .p-amber { background: var(--amber-light); color: var(--amber); }
-    .p-purple { background: var(--purple-light); color: var(--purple); }
-    .p-teal { background: var(--teal-light); color: var(--teal); }
+    /* ── TICKER ─────────────────────────────────────── */
+    .ticker {
+      border-top: 0.5px solid var(--border);
+      border-bottom: 0.5px solid var(--border);
+      padding: .7rem 0; overflow: hidden;
+      background: var(--bg2);
+    }
+    .ticker-track {
+      display: flex; gap: 0; width: max-content;
+      animation: tick 30s linear infinite;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+    @keyframes tick { to { transform: translateX(-50%); } }
+    .ticker-item {
+      display: flex; align-items: center; gap: 1.5rem;
+      padding: 0 2rem; white-space: nowrap;
+      font-size: 10px; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .ticker-item::after {
+      content: '·';
+      color: var(--orange); font-size: 1.2rem;
+    }
 
-    /* SECTION */
-    section { padding: 5rem 2.5rem; }
-    .section-eyebrow { font-size: 10px; letter-spacing: 4px; color: var(--orange); text-transform: uppercase; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px; }
-    .section-eyebrow::before { content: ''; display: block; width: 20px; height: 0.5px; background: var(--orange); }
-    .section-title { font-family: 'Syne', sans-serif; font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 800; color: var(--text); margin-bottom: 0.6rem; }
-    .section-sub { font-size: 14px; color: var(--muted); margin-bottom: 2.5rem; max-width: 480px; line-height: 1.7; }
+    /* ── SECTION BASE ────────────────────────────────── */
+    section { padding: 7rem 3rem; }
+    .eyebrow {
+      font-size: 10px; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--orange);
+      margin-bottom: .8rem;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .eyebrow::before {
+      content: '';
+      display: block; width: 24px; height: 0.5px;
+      background: var(--orange);
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800; color: var(--text);
+      letter-spacing: -.01em; margin-bottom: .5rem;
+    }
+    .section-sub {
+      font-size: 13px; color: var(--muted);
+      max-width: 440px; line-height: 1.8;
+    }
 
-    /* FEATURED PROJECTS */
-    #work { background: var(--bg); }
+    /* ── WORK ───────────────────────────────────────── */
+    #work { background: var(--bg); padding-bottom: 7rem; }
+    .work-header { margin-bottom: 3.5rem; }
+
+    /* Featured */
     .work-featured {
-      border: 0.5px solid var(--border); border-radius: 16px; overflow: hidden;
-      background: var(--bg2); margin-bottom: 16px;
-      transition: border-color 0.3s;
+      background: var(--bg2);
+      border: 0.5px solid var(--border);
+      overflow: hidden;
+      margin-bottom: 1px;
+      transition: border-color .3s;
     }
-    .work-featured:hover { border-color: rgba(216,90,48,0.3); }
-    .video-wrap { position: relative; }
-    .video-wrap video { width: 100%; display: block; aspect-ratio: 16/9; background: #000; }
-    .video-wrap video.vertical { aspect-ratio: 9/16; max-height: 480px; margin: 0 auto; }
+    .work-featured:hover { border-color: rgba(216,90,48,.25); }
+
+    .video-wrap { position: relative; overflow: hidden; }
+    .video-wrap video {
+      width: 100%; display: block;
+      aspect-ratio: 16/9; background: #000;
+      transition: transform .6s cubic-bezier(.16,1,.3,1);
+    }
+    .work-featured:hover .video-wrap video,
+    .work-card:hover .video-wrap video {
+      transform: scale(1.02);
+    }
     .video-controls {
       position: absolute; bottom: 0; left: 0; right: 0;
-      padding: 0.8rem 1rem; background: linear-gradient(transparent, rgba(0,0,0,0.9));
-      display: flex; align-items: center; gap: 10px;
-      opacity: 0; transition: opacity 0.2s;
+      padding: .7rem 1rem;
+      background: linear-gradient(transparent, rgba(0,0,0,.85));
+      display: flex; align-items: center; gap: 8px;
+      opacity: 0; transition: opacity .2s;
     }
     .video-wrap:hover .video-controls { opacity: 1; }
     .v-btn {
-      width: 28px; height: 28px; border-radius: 50%;
-      background: rgba(255,255,255,0.15); border: none; color: #fff;
-      cursor: pointer; display: flex; align-items: center; justify-content: center;
-      font-size: 11px; transition: background 0.2s; flex-shrink: 0;
+      width: 26px; height: 26px; border-radius: 50%;
+      background: rgba(255,255,255,.1); border: none;
+      color: #fff; cursor: pointer; font-size: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: background .2s;
     }
     .v-btn:hover { background: var(--orange); }
-    .v-progress { flex: 1; height: 3px; background: rgba(255,255,255,0.2); border-radius: 2px; cursor: pointer; }
-    .v-progress-fill { height: 100%; background: var(--orange); border-radius: 2px; width: 0%; }
-    .v-time { font-size: 10px; color: rgba(255,255,255,0.5); white-space: nowrap; }
-    .work-info {
-      padding: 1.4rem 1.6rem;
-      display: flex; justify-content: space-between; align-items: center;
-      flex-wrap: wrap; gap: 1rem;
+    .v-progress {
+      flex: 1; height: 2px;
+      background: rgba(255,255,255,.15);
+      border-radius: 2px; cursor: pointer;
+    }
+    .v-progress-fill {
+      height: 100%; background: var(--orange);
+      border-radius: 2px; width: 0%;
+      transition: width .1s linear;
+    }
+    .v-time { font-size: 10px; color: rgba(255,255,255,.4); white-space: nowrap; }
+
+    .work-meta-bar {
+      padding: 1.4rem 1.8rem;
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 1rem;
       border-top: 0.5px solid var(--border);
     }
-    .work-title { font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
-    .work-meta { font-size: 11px; color: var(--muted); letter-spacing: 0.5px; }
-    .work-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-    .work-tag { font-size: 10px; color: var(--muted); border: 0.5px solid var(--border2); padding: 3px 10px; border-radius: 4px; letter-spacing: 0.5px; }
-
-    .work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .work-card {
-      border: 0.5px solid var(--border); border-radius: 12px; overflow: hidden;
-      background: var(--bg2); transition: border-color 0.3s, transform 0.3s;
-    }
-    .work-card:hover { border-color: rgba(216,90,48,0.3); transform: translateY(-3px); }
-    .work-card .video-wrap video { aspect-ratio: 16/9; }
-    .work-card-info { padding: 1rem 1.2rem; border-top: 0.5px solid var(--border); }
-    .work-card-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
-    .work-card-meta { font-size: 11px; color: var(--muted); }
     .work-cat {
-      display: inline-block; padding: 3px 10px; border-radius: 999px;
-      font-size: 10px; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase;
-      margin-bottom: 8px;
+      font-size: 9px; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--orange);
+      margin-bottom: 5px;
     }
-    .cat-luxury { background: rgba(216,90,48,0.15); color: #F0A080; }
-    .cat-tech { background: rgba(24,95,165,0.15); color: #80B4E8; }
-    .cat-sports { background: rgba(59,109,17,0.15); color: #90C860; }
-    .cat-entertainment { background: rgba(83,74,183,0.15); color: #B0A8F0; }
-    .hbo-placeholder {
-      aspect-ratio: 16/9; background: var(--bg3);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 8px;
+    .work-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem; font-weight: 700;
+      color: var(--text); letter-spacing: -.01em;
     }
-    .hbo-placeholder-text { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: rgba(255,255,255,0.15); letter-spacing: 8px; }
-    .hbo-placeholder-sub { font-size: 10px; color: var(--muted2); letter-spacing: 3px; text-transform: uppercase; }
+    .work-type { font-size: 11px; color: var(--muted); margin-top: 3px; }
+    .work-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .work-tag {
+      font-size: 10px; color: var(--muted2);
+      border: 0.5px solid var(--border);
+      padding: 3px 10px; letter-spacing: .5px;
+    }
 
-    /* SERVICES */
+    /* Grid */
+    .work-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 0.5px solid var(--border);
+      margin-top: 1px;
+    }
+    .work-card {
+      background: var(--bg2);
+      overflow: hidden;
+      transition: background .3s;
+    }
+    .work-card:hover { background: var(--bg3); }
+    .work-card .work-meta-bar { border-top: 0.5px solid var(--border); }
+
+    /* HBO placeholder */
+    .hbo-ph {
+      aspect-ratio: 16/9;
+      background: var(--bg3);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 8px;
+    }
+    .hbo-ph-text {
+      font-family: 'Syne', sans-serif;
+      font-size: 3rem; font-weight: 800;
+      color: rgba(255,255,255,.08); letter-spacing: 12px;
+    }
+    .hbo-ph-sub {
+      font-size: 9px; color: var(--muted2);
+      letter-spacing: 3px; text-transform: uppercase;
+    }
+
+    /* Dragon Emperor card */
+    .dragon-card {
+      grid-column: 1 / -1;
+      background: var(--bg2);
+      overflow: hidden;
+      position: relative;
+      transition: background .3s;
+      display: block;
+    }
+    .dragon-card:hover { background: var(--bg3); }
+    .dragon-banner {
+      aspect-ratio: 21/9;
+      background:
+        radial-gradient(ellipse 60% 70% at 70% 40%, rgba(177,18,38,.3) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 20% 60%, rgba(255,106,0,.15) 0%, transparent 55%),
+        linear-gradient(135deg, #0B0B0B 0%, #1a0a05 50%, #0B0B0B 100%);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 3rem 3.5rem; gap: 2rem; position: relative; overflow: hidden;
+    }
+    .dragon-banner::before {
+      content: '龍';
+      position: absolute; right: 2rem; top: 50%;
+      transform: translateY(-50%);
+      font-size: 14rem; font-weight: 900;
+      color: rgba(212,175,55,.04);
+      line-height: 1; pointer-events: none;
+    }
+    .dragon-title-block {}
+    .dragon-eyebrow {
+      font-size: 9px; letter-spacing: 4px;
+      text-transform: uppercase; color: #D4AF37;
+      margin-bottom: .8rem; display: flex; align-items: center; gap: 8px;
+    }
+    .dragon-eyebrow::before {
+      content: ''; display: block;
+      width: 16px; height: 0.5px; background: #D4AF37;
+    }
+    .dragon-name {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      font-weight: 800; line-height: 1;
+      letter-spacing: -.02em;
+      color: #F0EDE8;
+    }
+    .dragon-name em { font-style: normal; color: #D4AF37; }
+    .dragon-tagline {
+      font-size: 11px; color: rgba(240,237,232,.45);
+      letter-spacing: .5px; margin-top: .8rem;
+      font-style: italic;
+    }
+    .dragon-meta { display: flex; flex-direction: column; gap: .7rem; align-items: flex-end; }
+    .dragon-meta-row { text-align: right; }
+    .dragon-meta-label {
+      font-size: 9px; letter-spacing: 2.5px;
+      text-transform: uppercase; color: #D4AF37;
+      margin-bottom: 2px;
+    }
+    .dragon-meta-val { font-size: 12px; color: rgba(240,237,232,.6); }
+    .dragon-swatches {
+      display: flex; gap: 4px; justify-content: flex-end; margin-top: .5rem;
+    }
+    .sw {
+      width: 16px; height: 16px;
+      border-radius: 50%; border: 0.5px solid rgba(255,255,255,.1);
+    }
+    .dragon-cta-bar {
+      padding: 1.2rem 2rem;
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 1rem;
+      border-top: 0.5px solid rgba(212,175,55,.12);
+    }
+    .dragon-cta-left { display: flex; align-items: center; gap: 1rem; }
+    .dragon-badge {
+      font-size: 9px; letter-spacing: 2px;
+      text-transform: uppercase; color: #D4AF37;
+      border: 0.5px solid rgba(212,175,55,.3);
+      padding: 3px 10px;
+    }
+    .dragon-view {
+      font-size: 11px; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--muted);
+      display: flex; align-items: center; gap: 6px;
+      transition: color .2s;
+    }
+    .dragon-view:hover { color: #D4AF37; }
+    .dragon-tag {
+      font-size: 9px; letter-spacing: 1.5px;
+      text-transform: uppercase; color: rgba(212,175,55,.5);
+      border: 0.5px solid rgba(212,175,55,.15);
+      padding: 3px 10px;
+    }
+
+    /* ── SERVICES ────────────────────────────────────── */
     #services { background: var(--bg2); }
-    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1px; background: var(--border); border-radius: 16px; overflow: hidden; }
-    .service-card { background: var(--bg2); padding: 2rem 1.8rem; transition: background 0.2s; position: relative; overflow: hidden; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--border);
+      border: 0.5px solid var(--border);
+      margin-top: 3rem;
+    }
+    .service-card {
+      background: var(--bg2);
+      padding: 2.2rem 2rem;
+      transition: background .25s;
+      position: relative; overflow: hidden;
+    }
     .service-card:hover { background: var(--bg3); }
-    .service-num { font-family: 'Syne', sans-serif; font-size: 3rem; font-weight: 800; color: var(--border2); line-height: 1; margin-bottom: 1.2rem; }
-    .service-icon { font-size: 1.5rem; margin-bottom: 1rem; }
-    .service-title { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 0.6rem; }
-    .service-desc { font-size: 12px; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
+    .service-card:hover .service-num { color: rgba(216,90,48,.15); }
+    .service-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 3.5rem; font-weight: 800;
+      color: var(--border2); line-height: 1;
+      margin-bottom: 1.5rem;
+      transition: color .3s;
+    }
+    .service-title {
+      font-family: 'Syne', sans-serif;
+      font-size: .9rem; font-weight: 700;
+      color: var(--text); margin-bottom: .6rem;
+      letter-spacing: -.01em;
+    }
+    .service-desc { font-size: 12px; color: var(--muted); line-height: 1.8; margin-bottom: 1.2rem; }
     .service-tags { display: flex; flex-wrap: wrap; gap: 5px; }
-    .service-tag { font-size: 10px; color: var(--muted2); border: 0.5px solid var(--border2); padding: 2px 8px; border-radius: 3px; }
+    .service-tag {
+      font-size: 9px; color: var(--muted2);
+      border: 0.5px solid var(--border);
+      padding: 2px 8px; letter-spacing: .5px;
+    }
 
-    /* ABOUT */
+    /* ── ABOUT ───────────────────────────────────────── */
     #about { background: var(--bg); }
-    .about-layout { display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: start; }
-    .about-left { position: sticky; top: 6rem; }
-    .about-avatar-box {
-      width: 100%; aspect-ratio: 1; border-radius: 16px;
-      background: var(--bg2); border: 0.5px solid var(--border);
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.8fr;
+      gap: 6rem; align-items: start;
+      margin-top: 4rem;
     }
-    .avatar-initials { font-family: 'Syne', sans-serif; font-size: 3.5rem; font-weight: 800; color: var(--orange); }
-    .avatar-sub { font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
-    .about-right p { font-size: 15px; color: var(--muted); line-height: 1.9; margin-bottom: 1.2rem; }
-    .about-right p strong { color: var(--text); font-weight: 500; }
-    .about-pills { display: flex; flex-wrap: wrap; gap: 8px; margin: 1.5rem 0; }
-    .about-grid-info { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 1.5rem; }
-    .about-info-card { background: var(--bg2); border: 0.5px solid var(--border); border-radius: 10px; padding: 1rem; }
-    .about-info-label { font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 5px; }
-    .about-info-value { font-size: 13px; font-weight: 500; color: var(--text); }
+    .about-left { position: sticky; top: 5rem; }
+    .about-img-box {
+      aspect-ratio: 3/4;
+      background: var(--bg2);
+      border: 0.5px solid var(--border);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 8px;
+      position: relative; overflow: hidden;
+    }
+    .about-img-box::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(8,8,8,.7) 100%);
+    }
+    .about-initials {
+      font-family: 'Syne', sans-serif;
+      font-size: 5rem; font-weight: 800;
+      color: var(--orange); line-height: 1;
+    }
+    .about-handle {
+      font-size: 10px; color: var(--muted);
+      letter-spacing: 3px; text-transform: uppercase;
+    }
+    .about-body { }
+    .about-body p {
+      font-size: .9rem; color: var(--muted);
+      line-height: 2; margin-bottom: 1.2rem;
+    }
+    .about-body strong { color: var(--text); font-weight: 500; }
+    .about-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--border);
+      border: 0.5px solid var(--border);
+      margin: 2.5rem 0;
+    }
+    .about-stat {
+      background: var(--bg2);
+      padding: 1.4rem 1.2rem;
+    }
+    .about-stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.8rem; font-weight: 800;
+      color: var(--text); line-height: 1;
+      margin-bottom: .3rem;
+    }
+    .about-stat-label {
+      font-size: 9px; color: var(--muted);
+      letter-spacing: 2px; text-transform: uppercase;
+    }
+    .about-info-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px; background: var(--border);
+      border: 0.5px solid var(--border);
+    }
+    .about-info-item {
+      background: var(--bg2);
+      padding: 1rem 1.2rem;
+    }
+    .about-info-label {
+      font-size: 9px; color: var(--orange);
+      letter-spacing: 2.5px; text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .about-info-val { font-size: 13px; color: var(--text); font-weight: 400; }
 
-    /* EXPERIENCE */
-    #experience { background: var(--bg2); }
-    .exp-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-    .exp-card { background: var(--bg3); border: 0.5px solid var(--border); border-radius: 12px; padding: 1.5rem; }
-    .exp-role { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
-    .exp-company { font-size: 12px; color: var(--orange); margin-bottom: 4px; }
-    .exp-date { font-size: 11px; color: var(--muted); margin-bottom: 1rem; }
-    .exp-list { padding-left: 1rem; }
-    .exp-list li { font-size: 12px; color: var(--muted); line-height: 1.8; margin-bottom: 3px; }
-    .edu-card { background: var(--bg3); border: 0.5px solid var(--border); border-radius: 12px; padding: 1.5rem; }
-    .edu-school { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
-    .edu-degree { font-size: 12px; color: var(--muted); margin-bottom: 4px; line-height: 1.6; }
-    .edu-year { font-size: 11px; color: var(--orange); }
-
-    /* CONTACT */
-    #contact { background: var(--bg); }
-    .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
-    .contact-headline { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 800; color: var(--text); margin-bottom: 1rem; line-height: 1.1; }
+    /* ── CONTACT ─────────────────────────────────────── */
+    #contact { background: var(--bg2); }
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem; align-items: start;
+      margin-top: 4rem;
+    }
+    .contact-headline {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800; line-height: 1.05;
+      letter-spacing: -.02em;
+      margin-bottom: 1.2rem;
+    }
     .contact-headline em { font-style: normal; color: var(--orange); }
-    .contact-desc { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; }
-    .contact-link { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); text-decoration: none; margin-bottom: 10px; transition: color 0.2s; }
-    .contact-link:hover { color: var(--orange); }
-    .contact-link svg { width: 15px; height: 15px; flex-shrink: 0; }
-    .contact-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .contact-form-grid input, .contact-form-grid textarea {
-      padding: 12px 14px; border: 0.5px solid var(--border);
-      border-radius: 8px; background: var(--bg2); color: var(--text);
-      font-family: 'Inter', sans-serif; font-size: 13px; outline: none;
-      transition: border-color 0.2s; width: 100%;
+    .contact-desc { font-size: 13px; color: var(--muted); line-height: 1.9; margin-bottom: 2rem; }
+    .contact-links { display: flex; flex-direction: column; gap: .7rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 12px; color: var(--muted);
+      letter-spacing: .5px;
+      transition: color .2s;
     }
-    .contact-form-grid input:focus, .contact-form-grid textarea:focus { border-color: var(--orange); }
-    .contact-form-grid input::placeholder, .contact-form-grid textarea::placeholder { color: var(--muted2); }
-    .contact-form-grid .full { grid-column: 1 / -1; }
-    .contact-form-grid textarea { height: 130px; resize: vertical; }
-    .send-btn { margin-top: 12px; padding: 13px 32px; border-radius: 8px; background: var(--orange); color: #fff; font-size: 13px; font-weight: 500; border: none; cursor: pointer; letter-spacing: 0.5px; transition: background 0.2s; }
+    .contact-link:hover { color: var(--orange); }
+    .contact-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+    .form-grid { display: flex; flex-direction: column; gap: 8px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .form-grid input,
+    .form-grid textarea {
+      width: 100%;
+      padding: 12px 14px;
+      background: var(--bg3);
+      border: 0.5px solid var(--border);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px; outline: none;
+      transition: border-color .2s;
+    }
+    .form-grid input:focus,
+    .form-grid textarea:focus { border-color: var(--orange); }
+    .form-grid input::placeholder,
+    .form-grid textarea::placeholder { color: var(--muted2); }
+    .form-grid textarea { height: 120px; resize: vertical; }
+    .send-btn {
+      margin-top: 4px;
+      padding: 13px 32px; background: var(--orange);
+      color: #fff; font-size: 12px; font-weight: 500;
+      letter-spacing: 1px; text-transform: uppercase;
+      border: none; cursor: pointer;
+      transition: background .2s;
+      align-self: flex-start;
+    }
     .send-btn:hover { background: var(--orange-dark); }
 
-    /* POPUP */
-    #success-popup { display: none; position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,0.85); align-items: center; justify-content: center; }
-    .popup-box { background: var(--bg2); border: 0.5px solid var(--border2); border-radius: 16px; padding: 2.5rem 2rem; max-width: 360px; width: 90%; text-align: center; }
-    .popup-icon { width: 52px; height: 52px; border-radius: 50%; background: var(--orange); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; }
-    .popup-title { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; color: var(--text); margin-bottom: 0.4rem; }
-    .popup-sub { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
-    .popup-close { padding: 10px 28px; border-radius: 8px; background: var(--orange); color: #fff; font-size: 13px; font-weight: 500; border: none; cursor: pointer; }
+    /* ── POPUP ───────────────────────────────────────── */
+    #success-popup {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,.85);
+      align-items: center; justify-content: center;
+    }
+    .popup-box {
+      background: var(--bg2);
+      border: 0.5px solid var(--border2);
+      padding: 2.5rem 2rem; max-width: 340px; width: 90%; text-align: center;
+    }
+    .popup-icon {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--orange);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1rem;
+    }
+    .popup-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem; font-weight: 800;
+      color: var(--text); margin-bottom: .4rem;
+    }
+    .popup-sub { font-size: 12px; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
+    .popup-close {
+      padding: 10px 28px; background: var(--orange);
+      color: #fff; font-size: 12px; font-weight: 500;
+      border: none; cursor: pointer;
+    }
 
-    /* FOOTER */
-    footer { padding: 2rem 2.5rem; border-top: 0.5px solid var(--border); background: var(--bg); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-    .footer-logo { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; letter-spacing: 3px; color: var(--text); }
+    /* ── FOOTER ──────────────────────────────────────── */
+    footer {
+      padding: 2rem 3rem;
+      border-top: 0.5px solid var(--border);
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: .9rem; font-weight: 800;
+      letter-spacing: 4px; color: var(--text);
+    }
     .footer-logo span { color: var(--orange); }
-    .footer-copy { font-size: 11px; color: var(--muted); }
+    .footer-copy { font-size: 10px; color: var(--muted); letter-spacing: .5px; }
     .footer-links { display: flex; gap: 1.5rem; }
-    .footer-links a { font-size: 11px; color: var(--muted); text-decoration: none; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; }
+    .footer-links a {
+      font-size: 10px; color: var(--muted);
+      letter-spacing: 1.5px; text-transform: uppercase;
+      transition: color .2s;
+    }
     .footer-links a:hover { color: var(--orange); }
 
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-      nav { padding: 1rem 1.2rem; }
-      .nav-links { gap: 1rem; }
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 1.5rem; }
+      nav.scrolled { padding: .9rem 1.5rem; }
       .nav-links li:nth-child(n+3) { display: none; }
-      .hero, section { padding: 5rem 1.2rem 3rem; }
-      .hero-stats { gap: 1.5rem; }
-      .work-grid, .contact-layout, .about-layout, .exp-layout { grid-template-columns: 1fr; }
+      .hero { padding: 0 1.5rem 6vh; }
+      section { padding: 5rem 1.5rem; }
+      .about-grid, .contact-wrap { grid-template-columns: 1fr; gap: 3rem; }
       .about-left { position: static; }
-      .contact-form-grid { grid-template-columns: 1fr; }
-      footer { flex-direction: column; text-align: center; }
+      .work-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .dragon-banner { aspect-ratio: auto; padding: 2rem; flex-direction: column; align-items: flex-start; }
+      .dragon-meta { align-items: flex-start; }
+      footer { flex-direction: column; text-align: center; padding: 1.5rem; }
+    }
+    @media (max-width: 560px) {
+      .hero-title { font-size: clamp(2.4rem, 11vw, 3.2rem); }
+      .services-grid { grid-template-columns: 1fr; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+      .form-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
+<!-- CURSOR -->
+<div id="cur-dot"></div>
+<div id="cur-ring"></div>
+
 <!-- NAV -->
-<nav>
-  <a href="#" class="logo">LOW<span>WW</span></a>
+<nav id="nav">
+  <a href="#" class="nav-logo">LOW<span>WW</span></a>
   <ul class="nav-links">
     <li><a href="#work">Work</a></li>
     <li><a href="#services">Services</a></li>
@@ -309,60 +703,64 @@
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-glow"></div>
-  <div class="hero-tag"><span class="hero-tag-dot"></span> Available for Projects</div>
-  <h1 class="hero-title">Creating Cinematic<br>Motion Graphics &<br><em>AI Commercials</em><br>for Modern Brands.</h1>
-  <p class="hero-sub">I design visually compelling motion content, AI-powered advertisements, and brand visuals that help businesses capture attention and tell memorable stories.</p>
-  <div class="hero-btns">
-    <a href="#work" class="btn-primary">
-      <svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:#fff"><path d="M8 5v14l11-7z"/></svg>
-      View My Work
-    </a>
-    <a href="#contact" class="btn-outline">Start a Project</a>
-  </div>
-  <div class="hero-divider"></div>
-  <div class="hero-stats">
-    <div><div class="hero-stat-num">4+</div><div class="hero-stat-label">Spec Projects</div></div>
-    <div><div class="hero-stat-num">AI</div><div class="hero-stat-label">Powered</div></div>
-    <div><div class="hero-stat-num">PH</div><div class="hero-stat-label">Based · Global</div></div>
+  <div class="hero-noise"></div>
+  <div class="hero-content">
+    <div class="hero-avail reveal">
+      <span class="avail-dot"></span>
+      Open to Briefs — 2025
+    </div>
+    <h1 class="hero-title">
+      <span class="line"><span class="line-inner">Motion.</span></span>
+      <span class="line"><span class="line-inner">Crafted</span></span>
+      <span class="line"><span class="line-inner"><em>Frame</em></span></span>
+      <span class="line"><span class="line-inner">by Frame.</span></span>
+    </h1>
+    <div class="hero-bottom reveal reveal-d3">
+      <p class="hero-sub">Cinematic art direction and motion design for gaming studios, tech brands, and agencies that demand premium.</p>
+      <div class="hero-actions">
+        <a href="#work" class="btn-primary">
+          <svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:#fff"><path d="M8 5v14l11-7z"/></svg>
+          View Work
+        </a>
+        <a href="#contact" class="btn-ghost">Start a Brief →</a>
+      </div>
+    </div>
   </div>
 </div>
 
 <!-- TICKER -->
 <div class="ticker" aria-hidden="true">
-  <div class="ticker-inner">
-    <span class="pill p-orange">AI Commercials</span>
-    <span class="pill p-blue">Motion Graphics</span>
-    <span class="pill p-green">Brand Films</span>
-    <span class="pill p-pink">Title Sequences</span>
-    <span class="pill p-amber">Product Launch</span>
-    <span class="pill p-purple">Creative Direction</span>
-    <span class="pill p-teal">Visual Storytelling</span>
-    <span class="pill p-orange">Luxury Campaigns</span>
-    <span class="pill p-blue">Prompt Engineering</span>
-    <span class="pill p-green">Social Media Motion</span>
-    <span class="pill p-pink">Storyboarding</span>
-    <span class="pill p-amber">Cinematic Ads</span>
-    <span class="pill p-orange">AI Commercials</span>
-    <span class="pill p-blue">Motion Graphics</span>
-    <span class="pill p-green">Brand Films</span>
-    <span class="pill p-pink">Title Sequences</span>
-    <span class="pill p-amber">Product Launch</span>
-    <span class="pill p-purple">Creative Direction</span>
-    <span class="pill p-teal">Visual Storytelling</span>
-    <span class="pill p-orange">Luxury Campaigns</span>
-    <span class="pill p-blue">Prompt Engineering</span>
-    <span class="pill p-green">Social Media Motion</span>
-    <span class="pill p-pink">Storyboarding</span>
-    <span class="pill p-amber">Cinematic Ads</span>
+  <div class="ticker-track">
+    <span class="ticker-item">Creative Direction</span>
+    <span class="ticker-item">Cinematic Asset Production</span>
+    <span class="ticker-item">Motion Graphics</span>
+    <span class="ticker-item">Post-Production VFX</span>
+    <span class="ticker-item">Brand Films</span>
+    <span class="ticker-item">Advanced Compositing</span>
+    <span class="ticker-item">Title Sequences</span>
+    <span class="ticker-item">Gaming Trailers</span>
+    <span class="ticker-item">Skin Launch Campaigns</span>
+    <span class="ticker-item">Luxury Advertising</span>
+    <span class="ticker-item">Creative Direction</span>
+    <span class="ticker-item">Cinematic Asset Production</span>
+    <span class="ticker-item">Motion Graphics</span>
+    <span class="ticker-item">Post-Production VFX</span>
+    <span class="ticker-item">Brand Films</span>
+    <span class="ticker-item">Advanced Compositing</span>
+    <span class="ticker-item">Title Sequences</span>
+    <span class="ticker-item">Gaming Trailers</span>
+    <span class="ticker-item">Skin Launch Campaigns</span>
+    <span class="ticker-item">Luxury Advertising</span>
   </div>
 </div>
 
-<!-- FEATURED PROJECTS -->
-<section id="work" data-reveal>
-  <p class="section-eyebrow">Selected Work</p>
-  <h2 class="section-title">Featured Projects</h2>
-  <p class="section-sub">A curated selection of cinematic motion graphics and AI-powered commercials. Every project is a spec concept created to demonstrate range, style, and creative direction.</p>
+<!-- WORK -->
+<section id="work">
+  <div class="work-header">
+    <p class="eyebrow reveal">Selected Work</p>
+    <h2 class="section-title reveal reveal-d1">Featured Projects</h2>
+    <p class="section-sub reveal reveal-d2">A curated selection of cinematic motion and commercial work — every project built to demonstrate range, style, and creative direction.</p>
+  </div>
 
   <!-- FEATURED: Lamborghini -->
   <div class="work-featured reveal">
@@ -375,23 +773,23 @@
         <button class="v-btn" onclick="toggleMute('vid-lambo',this)">🔇</button>
       </div>
     </div>
-    <div class="work-info">
+    <div class="work-meta-bar">
       <div>
-        <div class="work-cat cat-luxury">Luxury Automotive</div>
-        <div class="work-title">Lamborghini — Dark Reveal Launch Film</div>
-        <div class="work-meta" style="font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted2); margin-top:4px;">Commercial Film</div>
+        <div class="work-cat">Luxury Automotive</div>
+        <div class="work-name">Lamborghini — Dark Reveal Launch Film</div>
+        <div class="work-type">Commercial Film</div>
       </div>
       <div class="work-tags">
         <span class="work-tag">Motion Design</span>
-        <span class="work-tag">AI Production</span>
-        <span class="work-tag">Cinematic</span>
+        <span class="work-tag">Cinematic Asset Production</span>
         <span class="work-tag">Luxury</span>
       </div>
     </div>
   </div>
 
-  <!-- GRID: Apple + Red Bull -->
-  <div class="work-grid" style="margin-top:16px;">
+  <!-- GRID: Apple + Red Bull + Dragon Emperor -->
+  <div class="work-grid">
+
     <div class="work-card reveal">
       <div class="video-wrap">
         <video id="vid-apple" src="https://d8j0ntlcm91z4.cloudfront.net/user_39UIovq0myu4GeOCMsHj4PclXJ6/hf_20260613_212105_3cb2c637-dbaa-400f-8f6c-c08bdff71f8c.mp4" loop muted playsinline></video>
@@ -402,14 +800,20 @@
           <button class="v-btn" onclick="toggleMute('vid-apple',this)">🔇</button>
         </div>
       </div>
-      <div class="work-card-info">
-        <div class="work-cat cat-tech">Technology</div>
-        <div class="work-card-title">Apple — Particle Brand Film</div>
-        <div class="work-card-meta" style="font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted2); margin-top:3px;">Brand Visual</div>
+      <div class="work-meta-bar">
+        <div>
+          <div class="work-cat">Technology</div>
+          <div class="work-name">Apple — Particle Brand Film</div>
+          <div class="work-type">Brand Visual</div>
+        </div>
+        <div class="work-tags">
+          <span class="work-tag">Post-Production</span>
+          <span class="work-tag">Motion Graphics</span>
+        </div>
       </div>
     </div>
 
-    <div class="work-card reveal">
+    <div class="work-card reveal reveal-d1">
       <div class="video-wrap">
         <video id="vid-redbull" src="https://d8j0ntlcm91z4.cloudfront.net/user_39UIovq0myu4GeOCMsHj4PclXJ6/hf_20260613_221335_d019a58d-2a31-45f1-b888-64242bfb83ef.mp4" loop muted playsinline></video>
         <div class="video-controls">
@@ -419,161 +823,214 @@
           <button class="v-btn" onclick="toggleMute('vid-redbull',this)">🔇</button>
         </div>
       </div>
-      <div class="work-card-info">
-        <div class="work-cat cat-sports">Sports & Energy</div>
-        <div class="work-card-title">Red Bull — Kinetic Energy Ad</div>
-        <div class="work-card-meta" style="font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted2); margin-top:3px;">Product Advertisement</div>
+      <div class="work-meta-bar">
+        <div>
+          <div class="work-cat">Sports & Energy</div>
+          <div class="work-name">Red Bull — Kinetic Energy Ad</div>
+          <div class="work-type">Product Advertisement</div>
+        </div>
+        <div class="work-tags">
+          <span class="work-tag">Kinetic Motion</span>
+          <span class="work-tag">VFX</span>
+        </div>
       </div>
     </div>
 
-    <!-- HBO Placeholder -->
-    <div class="work-card reveal" style="grid-column: 1 / -1;">
-      <div class="hbo-placeholder">
-        <div class="hbo-placeholder-text">HBO</div>
-        <div class="hbo-placeholder-sub">Title Sequence — Coming Soon</div>
+    <!-- DRAGON EMPEROR CASE STUDY CARD -->
+    <a href="dragon-emperor.html" class="dragon-card reveal reveal-d2">
+      <div class="dragon-banner">
+        <div class="dragon-title-block">
+          <div class="dragon-eyebrow">Gaming · Skin Launch · 2025</div>
+          <div class="dragon-name">DRAGON<br><em>EMPEROR</em></div>
+          <div class="dragon-tagline">"Awaken the Emperor Within."</div>
+        </div>
+        <div class="dragon-meta">
+          <div class="dragon-meta-row">
+            <div class="dragon-meta-label">Format</div>
+            <div class="dragon-meta-val">15s · 16:9 · 1080p</div>
+          </div>
+          <div class="dragon-meta-row">
+            <div class="dragon-meta-label">Platforms</div>
+            <div class="dragon-meta-val">TikTok · Facebook · YouTube</div>
+          </div>
+          <div class="dragon-swatches">
+            <span class="sw" style="background:#0B0B0B;"></span>
+            <span class="sw" style="background:#D4AF37;"></span>
+            <span class="sw" style="background:#B11226;"></span>
+            <span class="sw" style="background:#FF6A00;"></span>
+          </div>
+        </div>
       </div>
-      <div class="work-card-info">
-        <div class="work-cat cat-entertainment">Entertainment</div>
-        <div class="work-card-title">HBO — "The Eye" Title Sequence</div>
-        <div class="work-card-meta" style="font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted2); margin-top:3px;">Motion Design · In Production</div>
+      <div class="dragon-cta-bar">
+        <div class="dragon-cta-left">
+          <span class="dragon-badge">Gaming Trailer</span>
+          <span class="dragon-view">View Case Study →</span>
+        </div>
+        <div class="work-tags">
+          <span class="dragon-tag">Creative Direction</span>
+          <span class="dragon-tag">Cinematic Production</span>
+          <span class="dragon-tag">Post VFX</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- HBO -->
+    <div class="work-card reveal reveal-d3" style="grid-column: 1 / -1;">
+      <div class="hbo-ph">
+        <div class="hbo-ph-text">HBO</div>
+        <div class="hbo-ph-sub">Title Sequence — Coming Soon</div>
+      </div>
+      <div class="work-meta-bar">
+        <div>
+          <div class="work-cat">Entertainment</div>
+          <div class="work-name">HBO — "The Eye" Title Sequence</div>
+          <div class="work-type">Motion Design · In Production</div>
+        </div>
+        <div class="work-tags">
+          <span class="work-tag">Title Sequence</span>
+          <span class="work-tag">Compositing</span>
+        </div>
       </div>
     </div>
+
   </div>
 </section>
 
 <!-- SERVICES -->
 <section id="services">
-  <p class="section-eyebrow">What I Offer</p>
-  <h2 class="section-title">Services</h2>
-  <p class="section-sub">From concept to final delivery — I handle creative direction, storyboarding, AI production, and visual storytelling for brands that want to stand out.</p>
-  <div class="services-grid reveal">
+  <p class="eyebrow reveal">Discipline</p>
+  <h2 class="section-title reveal reveal-d1">What I Deliver</h2>
+  <div class="services-grid reveal reveal-d2">
     <div class="service-card">
       <div class="service-num">01</div>
-      <div class="service-title">AI Commercial Production</div>
-      <div class="service-desc">Full-scale AI-powered commercials for brands, products, and campaigns. Concept to final video.</div>
-      <div class="service-tags"><span class="service-tag">AI Video</span><span class="service-tag">Brand Films</span><span class="service-tag">Campaigns</span></div>
+      <div class="service-title">Creative Direction</div>
+      <div class="service-desc">Concept development, narrative structure, and visual strategy — from brief to final frame.</div>
+      <div class="service-tags"><span class="service-tag">Concept</span><span class="service-tag">Storyboard</span><span class="service-tag">Art Direction</span></div>
     </div>
     <div class="service-card">
       <div class="service-num">02</div>
       <div class="service-title">Motion Graphics</div>
       <div class="service-desc">Cinematic motion design for brand identities, title sequences, and visual storytelling.</div>
-      <div class="service-tags"><span class="service-tag">Logo Animation</span><span class="service-tag">Title Sequences</span><span class="service-tag">Visual Effects</span></div>
+      <div class="service-tags"><span class="service-tag">Title Sequences</span><span class="service-tag">Kinetic Type</span><span class="service-tag">Brand Animation</span></div>
     </div>
     <div class="service-card">
       <div class="service-num">03</div>
-      <div class="service-title">Brand Advertisement Visuals</div>
-      <div class="service-desc">Scroll-stopping ad content for luxury brands, startups, and creative agencies.</div>
-      <div class="service-tags"><span class="service-tag">Luxury Ads</span><span class="service-tag">Social Media</span><span class="service-tag">Product Launch</span></div>
+      <div class="service-title">Cinematic Asset Production</div>
+      <div class="service-desc">Hero visuals, environment design, character key art, and VFX plates built for compositing.</div>
+      <div class="service-tags"><span class="service-tag">Key Art</span><span class="service-tag">Environment</span><span class="service-tag">VFX Plates</span></div>
     </div>
     <div class="service-card">
       <div class="service-num">04</div>
-      <div class="service-title">Product Launch Videos</div>
-      <div class="service-desc">Premium cinematic product reveals designed to capture attention at launch.</div>
-      <div class="service-tags"><span class="service-tag">Product Film</span><span class="service-tag">Automotive</span><span class="service-tag">Tech</span></div>
+      <div class="service-title">Advanced Compositing</div>
+      <div class="service-desc">Multi-layer integration, volumetric lighting, particle systems, and atmospheric finishing.</div>
+      <div class="service-tags"><span class="service-tag">Multi-Layer</span><span class="service-tag">Color Grade</span><span class="service-tag">VFX</span></div>
     </div>
     <div class="service-card">
       <div class="service-num">05</div>
-      <div class="service-title">Social Media Motion Content</div>
-      <div class="service-desc">High-impact vertical and square format motion content for Reels, TikTok, and Stories.</div>
-      <div class="service-tags"><span class="service-tag">Reels</span><span class="service-tag">TikTok</span><span class="service-tag">9:16 Format</span></div>
+      <div class="service-title">Post-Production</div>
+      <div class="service-desc">Sound design sync, color grade, and platform-optimized delivery across all formats.</div>
+      <div class="service-tags"><span class="service-tag">Sound Sync</span><span class="service-tag">Mastering</span><span class="service-tag">Platform Delivery</span></div>
     </div>
     <div class="service-card">
       <div class="service-num">06</div>
-      <div class="service-title">Creative Direction</div>
-      <div class="service-desc">End-to-end creative strategy, storyboarding, prompt engineering, and visual concept development.</div>
-      <div class="service-tags"><span class="service-tag">Strategy</span><span class="service-tag">Storyboard</span><span class="service-tag">Concept</span></div>
+      <div class="service-title">Campaign Art Direction</div>
+      <div class="service-desc">Full-scale ad production for gaming, luxury, and tech — concept through final cut.</div>
+      <div class="service-tags"><span class="service-tag">Gaming</span><span class="service-tag">Luxury</span><span class="service-tag">Tech Brands</span></div>
     </div>
   </div>
 </section>
 
 <!-- ABOUT -->
 <section id="about">
-  <p class="section-eyebrow">Background</p>
-  <h2 class="section-title">About</h2>
-  <div class="about-layout reveal">
-    <div class="about-left">
-      <div class="about-avatar-box">
-        <div class="avatar-initials">LJ</div>
-        <div class="avatar-sub">Lowww · Philippines</div>
+  <p class="eyebrow reveal">About</p>
+  <h2 class="section-title reveal reveal-d1">The Creative</h2>
+  <div class="about-grid">
+    <div class="about-left reveal">
+      <div class="about-img-box">
+        <div class="about-initials">LJ</div>
+        <div class="about-handle">LOWWW · Philippines</div>
       </div>
     </div>
-    <div class="about-right">
-      <p>I'm <strong>Lhouei Jay Amion</strong> — a motion designer based in the Philippines, passionate about crafting cinematic visuals that make brands impossible to ignore.</p>
-      <p>My work lives at the intersection of <strong>storytelling and visual impact</strong>. I believe every brand has a story worth telling — and that the right motion, the right frame, and the right feeling can turn a concept into something people actually remember.</p>
-      <p>I create <strong>commercials, product launch films, and motion content</strong> for brands that care about how they look, how they feel, and the impression they leave behind.</p>
-      <div class="about-pills">
-        <span class="pill p-orange">Motion Designer</span>
-        <span class="pill p-blue">Visual Storyteller</span>
-        <span class="pill p-green">Philippines 🇵🇭</span>
-        <span class="pill p-purple">Creative Director</span>
-      </div>
-      <div class="about-grid-info">
-        <div class="about-info-card"><div class="about-info-label">Age</div><div class="about-info-value">23 years old</div></div>
-        <div class="about-info-card"><div class="about-info-label">Location</div><div class="about-info-value">CSJDM, Bulacan</div></div>
-        <div class="about-info-card"><div class="about-info-label">Degree</div><div class="about-info-value">BS Info Tech</div></div>
-        <div class="about-info-card"><div class="about-info-label">Available</div><div class="about-info-value">For Projects</div></div>
-      </div>
-    </div>
-  </div>
-</section>
+    <div class="about-body reveal reveal-d2">
+      <p>I'm <strong>Lhouei Jay Amion</strong> — a motion designer and art director based in the Philippines, focused on building cinematic visuals that make brands impossible to ignore.</p>
+      <p>My work lives at the intersection of <strong>storytelling and visual impact</strong>. Every project starts with a narrative — a reason for each frame to exist — before a single element is placed.</p>
+      <p>I work with <strong>gaming studios, tech brands, and creative agencies</strong> that care about the impression they leave behind.</p>
 
-<!-- EXPERIENCE -->
-<section id="experience">
-  <p class="section-eyebrow">Background</p>
-  <h2 class="section-title">Experience & Education</h2>
-  <div class="exp-layout reveal">
-    <div class="exp-card">
-      <div class="exp-role">IT Support Intern</div>
-      <div class="exp-company">RGS Inc.</div>
-      <div class="exp-date">January – May 2025</div>
-      <ul class="exp-list">
-        <li>Configured and deployed computer systems</li>
-        <li>Troubleshot hardware, software, and network issues</li>
-        <li>Assisted in server maintenance and DNS setup</li>
-        <li>Gained exposure to IT automation and infrastructure</li>
-      </ul>
-    </div>
-    <div class="edu-card">
-      <div class="edu-school">Bulacan State University</div>
-      <div class="edu-degree">BS Information Technology<br>Major in Web & Mobile Development</div>
-      <div class="edu-year">2021 – 2025 · San Jose del Monte, Bulacan</div>
+      <div class="about-stats">
+        <div class="about-stat">
+          <div class="about-stat-num">4+</div>
+          <div class="about-stat-label">Projects</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num">3</div>
+          <div class="about-stat-label">Industries</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num">PH</div>
+          <div class="about-stat-label">Based · Global</div>
+        </div>
+      </div>
+
+      <div class="about-info-grid">
+        <div class="about-info-item">
+          <div class="about-info-label">Location</div>
+          <div class="about-info-val">CSJDM, Bulacan · PH</div>
+        </div>
+        <div class="about-info-item">
+          <div class="about-info-label">Availability</div>
+          <div class="about-info-val">Open for Briefs</div>
+        </div>
+        <div class="about-info-item">
+          <div class="about-info-label">Education</div>
+          <div class="about-info-val">BS Info Tech · BulSU</div>
+        </div>
+        <div class="about-info-item">
+          <div class="about-info-label">Focus</div>
+          <div class="about-info-val">Motion · Gaming · Luxury</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="contact-layout reveal">
-    <div>
-      <p class="section-eyebrow">Let's Work Together</p>
-      <h2 class="contact-headline">Ready to create something <em>unforgettable?</em></h2>
-      <p class="contact-desc">Whether you need a cinematic commercial, product visual, or motion design project, I'm always open to discussing creative ideas and collaborations.</p>
-      <a href="mailto:lhoueijayamion@gmail.com" class="contact-link">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-        lhoueijayamion@gmail.com
-      </a>
-      <a href="https://www.instagram.com/xzxzbczbz/" target="_blank" class="contact-link">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-        @xzxzbczbz
-      </a>
-      <a href="https://www.facebook.com/mamalhouei" target="_blank" class="contact-link">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-        facebook.com/mamalhouei
-      </a>
-      <a href="https://github.com/Lowieeed" target="_blank" class="contact-link">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
-        github.com/Lowieeed
-      </a>
+  <p class="eyebrow reveal">Let's Work</p>
+  <h2 class="section-title reveal reveal-d1">Start a Brief</h2>
+  <div class="contact-wrap">
+    <div class="reveal reveal-d2">
+      <h3 class="contact-headline">Ready to create something <em>unforgettable?</em></h3>
+      <p class="contact-desc">Open to commercial projects, gaming campaigns, brand films, and creative collaborations. Let's build something worth remembering.</p>
+      <div class="contact-links">
+        <a href="mailto:lhoueijayamion@gmail.com" class="contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          lhoueijayamion@gmail.com
+        </a>
+        <a href="https://www.instagram.com/xzxzbczbz/" target="_blank" class="contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          @xzxzbczbz
+        </a>
+        <a href="https://www.facebook.com/mamalhouei" target="_blank" class="contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          facebook.com/mamalhouei
+        </a>
+        <a href="https://github.com/Lowieeed" target="_blank" class="contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+          github.com/Lowieeed
+        </a>
+      </div>
     </div>
-    <div>
+    <div class="reveal reveal-d3">
       <form id="contact-form">
-        <div class="contact-form-grid">
-          <input type="text" id="fname" name="name" placeholder="Your name" required />
-          <input type="email" id="femail" name="email" placeholder="Your email" required />
-          <input type="text" id="fproject" name="project" placeholder="Project type (AI commercial, motion graphics...)" class="full" />
-          <textarea id="fmessage" name="message" placeholder="Tell me about your project..." class="full" required></textarea>
+        <div class="form-grid">
+          <div class="form-row">
+            <input type="text" id="fname" placeholder="Your name" required />
+            <input type="email" id="femail" placeholder="Your email" required />
+          </div>
+          <input type="text" id="fproject" placeholder="Project type" />
+          <textarea id="fmessage" placeholder="Tell me about your project..." required></textarea>
+          <button type="submit" class="send-btn" id="submit-btn">Send Message →</button>
         </div>
-        <button type="submit" class="send-btn" id="submit-btn">Send Message →</button>
       </form>
     </div>
   </div>
@@ -583,10 +1040,10 @@
 <div id="success-popup">
   <div class="popup-box">
     <div class="popup-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" style="width:22px;height:22px;"><path d="M5 13l4 4L19 7"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" style="width:20px;height:20px;"><path d="M5 13l4 4L19 7"/></svg>
     </div>
     <p class="popup-title">Message Sent!</p>
-    <p class="popup-sub">Thanks for reaching out! I'll get back to you as soon as possible.</p>
+    <p class="popup-sub">Thanks for reaching out. I'll get back to you as soon as possible.</p>
     <button class="popup-close" onclick="document.getElementById('success-popup').style.display='none'">Got it</button>
   </div>
 </div>
@@ -594,7 +1051,7 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">LOW<span>WW</span></div>
-  <p class="footer-copy">© 2025 Lhouei Jay P. Amion · Motion Designer & AI Commercial Creator</p>
+  <p class="footer-copy">© 2025 Lhouei Jay P. Amion · Motion Designer & Art Director</p>
   <div class="footer-links">
     <a href="https://www.instagram.com/xzxzbczbz/" target="_blank">Instagram</a>
     <a href="https://www.facebook.com/mamalhouei" target="_blank">Facebook</a>
@@ -604,63 +1061,110 @@
 </footer>
 
 <script>
-  // SCROLL REVEAL
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+/* ── CURSOR ─────────────────────────────── */
+const dot  = document.getElementById('cur-dot');
+const ring = document.getElementById('cur-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
 
-  // VIDEO CONTROLS
-  function togglePlay(id, btn) {
-    const v = document.getElementById(id);
-    if (v.paused) { v.play(); btn.textContent = '⏸'; } else { v.pause(); btn.textContent = '▶'; }
-  }
-  function toggleMute(id, btn) {
-    const v = document.getElementById(id);
-    v.muted = !v.muted; btn.textContent = v.muted ? '🔇' : '🔊';
-  }
-  function seekVid(id, event, bar) {
-    const v = document.getElementById(id);
-    const r = bar.getBoundingClientRect();
-    v.currentTime = ((event.clientX - r.left) / r.width) * v.duration;
-  }
-  document.querySelectorAll('video').forEach(v => {
-    v.addEventListener('timeupdate', () => {
-      const fill = document.getElementById('prog-' + v.id);
-      const time = document.getElementById('time-' + v.id);
-      if (fill && v.duration) fill.style.width = (v.currentTime / v.duration * 100) + '%';
-      if (time) {
-        const m = Math.floor(v.currentTime / 60);
-        const s = String(Math.floor(v.currentTime % 60)).padStart(2, '0');
-        time.textContent = m + ':' + s;
-      }
-    });
-  });
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  dot.style.transform = `translate(${mx}px,${my}px) translate(-50%,-50%)`;
+});
+(function loop() {
+  rx += (mx - rx) * .11;
+  ry += (my - ry) * .11;
+  ring.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`;
+  requestAnimationFrame(loop);
+})();
+document.querySelectorAll('a,button,[data-hover]').forEach(el => {
+  el.addEventListener('mouseenter', () => ring.classList.add('hov'));
+  el.addEventListener('mouseleave', () => ring.classList.remove('hov'));
+});
 
-  // CONTACT FORM
-  document.getElementById('contact-form').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const btn = document.getElementById('submit-btn');
-    btn.textContent = 'Sending...'; btn.disabled = true;
-    try {
-      const res = await fetch('https://formspree.io/f/xpqekaod', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          name: document.getElementById('fname').value,
-          email: document.getElementById('femail').value,
-          project: document.getElementById('fproject').value,
-          message: document.getElementById('fmessage').value
-        })
+/* ── NAV SCROLL ─────────────────────────── */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+/* ── HERO TITLE REVEAL ──────────────────── */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.querySelectorAll('.hero-title .line-inner')
+      .forEach((el, i) => {
+        setTimeout(() => el.classList.add('show'), i * 130);
       });
-      if (res.ok) {
-        document.getElementById('success-popup').style.display = 'flex';
-        this.reset();
-      } else { alert('Something went wrong. Please try again.'); }
-    } catch { alert('Something went wrong. Please try again.'); }
-    btn.textContent = 'Send Message →'; btn.disabled = false;
+  }, 200);
+});
+
+/* ── SCROLL REVEAL ──────────────────────── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
   });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+/* ── VIDEO CONTROLS ─────────────────────── */
+function togglePlay(id, btn) {
+  const v = document.getElementById(id);
+  if (v.paused) { v.play(); btn.textContent = '⏸'; }
+  else          { v.pause(); btn.textContent = '▶'; }
+}
+function toggleMute(id, btn) {
+  const v = document.getElementById(id);
+  v.muted = !v.muted;
+  btn.textContent = v.muted ? '🔇' : '🔊';
+}
+function seekVid(id, e, bar) {
+  const v = document.getElementById(id);
+  const r = bar.getBoundingClientRect();
+  v.currentTime = ((e.clientX - r.left) / r.width) * v.duration;
+}
+document.querySelectorAll('video').forEach(v => {
+  v.addEventListener('timeupdate', () => {
+    const fill = document.getElementById('prog-' + v.id);
+    const time = document.getElementById('time-' + v.id);
+    if (fill && v.duration) fill.style.width = (v.currentTime / v.duration * 100) + '%';
+    if (time) {
+      const m = Math.floor(v.currentTime / 60);
+      const s = String(Math.floor(v.currentTime % 60)).padStart(2, '0');
+      time.textContent = m + ':' + s;
+    }
+  });
+});
+
+/* ── AUTO-PLAY ON HOVER ─────────────────── */
+document.querySelectorAll('.video-wrap').forEach(wrap => {
+  const vid = wrap.querySelector('video');
+  if (!vid) return;
+  wrap.addEventListener('mouseenter', () => vid.play());
+  wrap.addEventListener('mouseleave', () => { vid.pause(); });
+});
+
+/* ── CONTACT FORM ───────────────────────── */
+document.getElementById('contact-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  btn.textContent = 'Sending...'; btn.disabled = true;
+  try {
+    const res = await fetch('https://formspree.io/f/xpqekaod', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        name: document.getElementById('fname').value,
+        email: document.getElementById('femail').value,
+        project: document.getElementById('fproject').value,
+        message: document.getElementById('fmessage').value
+      })
+    });
+    if (res.ok) {
+      document.getElementById('success-popup').style.display = 'flex';
+      this.reset();
+    } else { alert('Something went wrong. Please try again.'); }
+  } catch { alert('Something went wrong. Please try again.'); }
+  btn.textContent = 'Send Message →'; btn.disabled = false;
+});
 </script>
-  <script src="motion-interactions.js" defer></script>
 </body>
 </html>
