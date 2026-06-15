@@ -259,8 +259,12 @@
     .video-wrap { position: relative; overflow: hidden; }
     .video-wrap video {
       width: 100%; display: block;
-      aspect-ratio: 16/9; background: #000;
+      aspect-ratio: 21/9; background: #000;
+      object-fit: cover;
       transition: transform .6s cubic-bezier(.16,1,.3,1);
+    }
+    .work-card .video-wrap video {
+      aspect-ratio: 16/9;
     }
     .work-featured:hover .video-wrap video,
     .work-card:hover .video-wrap video {
@@ -369,7 +373,7 @@
         radial-gradient(ellipse 50% 50% at 20% 60%, rgba(255,106,0,.15) 0%, transparent 55%),
         linear-gradient(135deg, #0B0B0B 0%, #1a0a05 50%, #0B0B0B 100%);
       display: flex; align-items: center; justify-content: space-between;
-      padding: 3rem 3.5rem; gap: 2rem; position: relative; overflow: hidden;
+      padding: 2rem 3rem; gap: 2rem; position: relative; overflow: hidden;
     }
     .dragon-banner::before {
       content: '龍';
@@ -777,7 +781,7 @@
       <div>
         <div class="work-cat">Luxury Automotive</div>
         <div class="work-name">Lamborghini — Dark Reveal Launch Film</div>
-        <div class="work-type">Commercial Film</div>
+        <div class="work-type">Commercial Film · AI Generated</div>
       </div>
       <div class="work-tags">
         <span class="work-tag">Motion Design</span>
@@ -804,7 +808,7 @@
         <div>
           <div class="work-cat">Technology</div>
           <div class="work-name">Apple — Particle Brand Film</div>
-          <div class="work-type">Brand Visual</div>
+          <div class="work-type">Brand Visual · AI Generated</div>
         </div>
         <div class="work-tags">
           <span class="work-tag">Post-Production</span>
@@ -827,7 +831,7 @@
         <div>
           <div class="work-cat">Sports & Energy</div>
           <div class="work-name">Red Bull — Kinetic Energy Ad</div>
-          <div class="work-type">Product Advertisement</div>
+          <div class="work-type">Product Advertisement · AI Generated</div>
         </div>
         <div class="work-tags">
           <span class="work-tag">Kinetic Motion</span>
@@ -838,33 +842,22 @@
 
     <!-- DRAGON EMPEROR CASE STUDY CARD -->
     <a href="dragon-emperor.html" class="dragon-card reveal reveal-d2">
-      <div class="dragon-banner">
-        <div class="dragon-title-block">
-          <div class="dragon-eyebrow">Gaming · Skin Launch · 2025</div>
-          <div class="dragon-name">DRAGON<br><em>EMPEROR</em></div>
-          <div class="dragon-tagline">"Awaken the Emperor Within."</div>
+      <div class="video-wrap">
+        <video id="vid-dragon" src="https://d8j0ntlcm91z4.cloudfront.net/user_39UIovq0myu4GeOCMsHj4PclXJ6/hf_20260615_181534_7e56b176-fbbe-4d2c-a4ef-841bf64715a6.mp4" loop muted playsinline></video>
+        <div class="video-controls">
+          <button class="v-btn" onclick="event.preventDefault();togglePlay('vid-dragon',this)">▶</button>
+          <div class="v-progress" onclick="event.preventDefault();seekVid('vid-dragon',event,this)"><div class="v-progress-fill" id="prog-vid-dragon"></div></div>
+          <span class="v-time" id="time-vid-dragon">0:00</span>
+          <button class="v-btn" onclick="event.preventDefault();toggleMute('vid-dragon',this)">🔇</button>
         </div>
-        <div class="dragon-meta">
-          <div class="dragon-meta-row">
-            <div class="dragon-meta-label">Format</div>
-            <div class="dragon-meta-val">15s · 16:9 · 1080p</div>
-          </div>
-          <div class="dragon-meta-row">
-            <div class="dragon-meta-label">Platforms</div>
-            <div class="dragon-meta-val">TikTok · Facebook · YouTube</div>
-          </div>
-          <div class="dragon-swatches">
-            <span class="sw" style="background:#0B0B0B;"></span>
-            <span class="sw" style="background:#D4AF37;"></span>
-            <span class="sw" style="background:#B11226;"></span>
-            <span class="sw" style="background:#FF6A00;"></span>
-          </div>
+        <div style="position:absolute;top:1rem;left:1rem;display:flex;gap:.5rem;align-items:center;">
+          <span style="font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:#D4AF37;background:rgba(11,11,11,.75);padding:3px 10px;border:0.5px solid rgba(212,175,55,.3);">Gaming · Skin Launch</span>
         </div>
       </div>
       <div class="dragon-cta-bar">
         <div class="dragon-cta-left">
-          <span class="dragon-badge">Gaming Trailer</span>
-          <span class="dragon-view">View Case Study →</span>
+          <span class="dragon-badge">AI Generated</span>
+          <span class="dragon-view">Dragon Emperor — View Case Study →</span>
         </div>
         <div class="work-tags">
           <span class="dragon-tag">Creative Direction</span>
