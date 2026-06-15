@@ -29,22 +29,41 @@
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* NAV */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1.2rem 2.5rem;
-      background: rgba(8,8,8,0.92); backdrop-filter: blur(20px);
-      border-bottom: 0.5px solid var(--border);
-    }
-    .logo { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 800; letter-spacing: 3px; color: var(--text); text-decoration: none; }
-    .logo span { color: var(--orange); }
-    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
-    .nav-links a { font-size: 11px; color: var(--muted); text-decoration: none; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--text); }
-    .nav-cta { padding: 8px 20px; border-radius: 6px; background: var(--orange); color: #fff !important; font-size: 11px !important; letter-spacing: 1px !important; transition: background 0.2s !important; }
-    .nav-cta:hover { background: var(--orange-dark) !important; color: #fff !important; }
+  .logo { 
+  font-family: 'Syne', sans-serif; 
+  font-size: 1.2rem; 
+  font-weight: 800; 
+  letter-spacing: 3px; 
+  color: var(--text); 
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
 
+.logo::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -75%;
+  width: 50%; height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent 30%,
+    rgba(212, 175, 55, 0.5) 50%,
+    transparent 70%
+  );
+  transform: skewX(-20deg);
+  opacity: 0;
+}
+
+.logo:hover::after {
+  animation: shimmer 0.6s ease forwards;
+}
+
+@keyframes shimmer {
+  0%   { left: -75%; opacity: 1; }
+  100% { left: 125%; opacity: 1; }
+}
     /* HERO */
     .hero {
       min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
