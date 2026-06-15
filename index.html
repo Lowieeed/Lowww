@@ -668,20 +668,13 @@ const obs = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-/* VIDEO HOVER AUTOPLAY */
-document.querySelectorAll('.v-wrap').forEach(wrap => {
-  const vid = wrap.querySelector('video');
+/* VIDEO HOVER AUTOPLAY on row hover */
+document.querySelectorAll('.work-row').forEach(row => {
+  const vid = row.querySelector('video');
   if (!vid) return;
-  wrap.addEventListener('mouseenter', () => vid.play());
-  wrap.addEventListener('mouseleave', () => { vid.pause(); vid.currentTime = 0; });
+  row.addEventListener('mouseenter', () => vid.play());
+  row.addEventListener('mouseleave', () => { vid.pause(); vid.currentTime = 0; });
 });
-
-/* MANUAL PLAY TOGGLE */
-function toggleV(id, btn) {
-  const v = document.getElementById(id);
-  if (v.paused) { v.play(); btn.textContent = '⏸'; }
-  else { v.pause(); btn.textContent = '▶'; }
-}
 
 /* RIGHT CLICK BLOCK */
 document.querySelectorAll('video').forEach(v => v.addEventListener('contextmenu', e => e.preventDefault()));
